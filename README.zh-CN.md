@@ -25,3 +25,8 @@ pnpm vp-update
 
 - [vuepress](https://vuepress.vuejs.org/)
 - [vuepress-theme-plume](https://theme-plume.vuejs.press/)
+
+## 问题记录
+
+- 如何让 notes 文件夹下生成的 permalink 是按路径和文件名来命名的，甚至可以自定义这个规则
+- 博客可以配置 sidebar 吗

@@ -12,28 +12,34 @@ export default defineUserConfig({
   lang: 'zh-CN',
   title: 'My Vuepress Site',
   description: '',
-
+  /** 打包工具 */
   bundler: viteBundler(),
-
-  // VuePress 主题配置
+  /** 元信息 */
+  head: [
+    ['link', { rel: 'icon', href: '/avatar.svg' }],
+  ],
+  /** VuePress 主题配置 */
   theme: plumeTheme({
     // 添加您的部署域名
     // hostname: 'https://your_site_url',
     // your git repo url
     docsRepo: '',
     docsDir: 'docs',
-
     // 博客配置
-    // blog: false,
-
+    blog: {
+      // archives: false
+    },
+    // 文章配置
+    // article: "/article/",
+    // 插件配置
     plugins: {
       /**
        * Shiki 代码高亮
        * @see https://theme-plume.vuejs.press/config/plugins/code-highlight/
        */
       shiki: {
-          //  强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
-        languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css'],
+        //  强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
+        languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css', 'vue', 'scss', 'text'],
       },
 
       /**
@@ -42,11 +48,11 @@ export default defineUserConfig({
        */
       markdownEnhance: {
         demo: true,
-      //   include: true,
-      //   chart: true,
-      //   echarts: true,
-      //   mermaid: true,
-      //   flowchart: true,
+        //   include: true,
+        //   chart: true,
+        //   echarts: true,
+        //   mermaid: true,
+        //   flowchart: true,
       },
 
       /**
@@ -85,8 +91,10 @@ export default defineUserConfig({
       //   reactionsEnabled: true,
       //   inputPosition: 'top',
       // },
-      // 阅读时间插件
+      /** 阅读时间插件 */
       readingTime: false,
+      /** 最后更新时间 */
+      // lastUpdated: false,
     },
   }),
 })
