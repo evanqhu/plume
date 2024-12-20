@@ -1,5 +1,5 @@
 {
-  "name": "my-vuepress-site",
+  "name": "evanqhu-vuepress-site",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -10,6 +10,7 @@
     "node": "^18.20.0 || >=20.0.0"
   },
   "scripts": {
+    "dev": "vuepress dev docs",
     "docs:dev": "vuepress dev docs",
     "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
     "docs:build": "vuepress build docs --clean-cache --clean-temp",
