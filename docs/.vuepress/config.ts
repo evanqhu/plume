@@ -1,3 +1,8 @@
+/** 
+ * VuePress 配置文件
+ * 配置主题、插件、构建工具等
+ * 每次修改需要重启服务
+ */
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
@@ -10,6 +15,7 @@ export default defineUserConfig({
 
   bundler: viteBundler(),
 
+  // VuePress 主题配置
   theme: plumeTheme({
     // 添加您的部署域名
     // hostname: 'https://your_site_url',
@@ -17,15 +23,18 @@ export default defineUserConfig({
     docsRepo: '',
     docsDir: 'docs',
 
+    // 博客配置
+    // blog: false,
+
     plugins: {
       /**
        * Shiki 代码高亮
        * @see https://theme-plume.vuejs.press/config/plugins/code-highlight/
        */
-      // shiki: {
-           // 强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
-      //   languages: ['shell', 'bash', 'typescript', 'javascript'],
-      // },
+      shiki: {
+          //  强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
+        languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css'],
+      },
 
       /**
        * markdown enhance
@@ -76,6 +85,8 @@ export default defineUserConfig({
       //   reactionsEnabled: true,
       //   inputPosition: 'top',
       // },
+      // 阅读时间插件
+      readingTime: false,
     },
   }),
 })

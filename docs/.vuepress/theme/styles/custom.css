@@ -48,3 +48,8 @@
   --vp-c-text-3: rgba(235, 235, 245, 0.38);
   */
 }
+
+/** 当一篇文章没有 meta 的时候，去掉下面的 4rem 的 padding */
+.vp-doc-title.padding {
+  padding-bottom: 0 !important;
+}
