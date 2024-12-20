@@ -30,3 +30,12 @@ pnpm vp-update
 
 - 如何让 notes 文件夹下生成的 permalink 是按路径和文件名来命名的，甚至可以自定义这个规则
 - 博客可以配置 sidebar 吗
+- notes 中的 text 是干什么的
+
+## 使用指南
+- 开启 autoFrontmatter
+- 对于博客类笔记 (非 notes 文件夹下的) 使用 autoFrontmatter 自动生成 permalink
+- 对于 notes 中的非系统性笔记 (如：组件、算法、工程化等)，使用 autoFrontmatter 自动生成 permalink，并且配置 sidebar 为 auto
+- 对于 notes 中的系统性笔记 (有顺序的)，有两种方案：
+  - 依然使用 autoFrontmatter 自动生成 permalink，并且配置 sidebar 为 auto，但是在文件名前添加序号用于排序 (感觉这样是最方便的)
+  - 手动配置 permalink 为文件夹名 + 文件名，然后手动依次配置 sidebar，这样就可以自定义顺序了 (感觉很麻烦)
