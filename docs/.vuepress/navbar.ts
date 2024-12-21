@@ -7,5 +7,5 @@ export const navbar = defineNavbarConfig([
   // { text: '分类', link: '/blog/categories/' },
   // { text: '归档', link: '/blog/archives/' },
   // 笔记相关
-  { text: 'interview', link: '/notes/interview/' },
+  { text: '工程化', link: '/notes/engineering/' },
 ])

@@ -13,12 +13,11 @@ export const notes = defineNotesConfig({
   link: '/', // 所有笔记的默认链接前缀
   // 每一个笔记都是 notes 数组中的一个对象
   notes: [
-    // demoNote,
     // 面试相关
     {
-      dir: 'interview',
-      link: '/interview',
-      text: '面试',
+      dir: 'engineering',
+      link: '/engineering',
+      text: '工程化',
       sidebar: 'auto'
     }
   ],

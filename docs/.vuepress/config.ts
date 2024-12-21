@@ -10,8 +10,8 @@ import { plumeTheme } from 'vuepress-theme-plume'
 export default defineUserConfig({
   base: '/',
   lang: 'zh-CN',
-  title: 'My Vuepress Site',
-  description: '',
+  title: '蛋炒饭的前端笔记',
+  description: 'A VuePress Site with Plume Theme',
   /** 打包工具 */
   bundler: viteBundler(),
   /** 元信息 */
@@ -25,6 +25,7 @@ export default defineUserConfig({
     // your git repo url
     docsRepo: '',
     docsDir: 'docs',
+    // lastUpdated: false, // 最后更新时间
     // 博客配置
     blog: {
       // archives: false
@@ -40,6 +41,8 @@ export default defineUserConfig({
       shiki: {
         //  强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
         languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css', 'vue', 'scss', 'text'],
+        // 行号
+        lineNumbers: false,
       },
 
       /**
@@ -93,8 +96,6 @@ export default defineUserConfig({
       // },
       /** 阅读时间插件 */
       readingTime: false,
-      /** 最后更新时间 */
-      // lastUpdated: false,
     },
   }),
 })
