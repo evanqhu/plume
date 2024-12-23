@@ -1,7 +1,7 @@
 ---
-title: Tips
-createTime: 2024/12/23 11:17:38
-permalink: /others/tf95suon/
+title: 杂项
+createTime: 2024/12/23 14:45:18
+permalink: /others/
 ---
 
 ## 以 x86 架构运行 shell
