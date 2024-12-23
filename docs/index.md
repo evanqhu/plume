@@ -7,9 +7,9 @@ config:
     full: true
     background: tint-plate
     hero:
-      name: Theme Plume
-      tagline: VuePress Next Theme
-      text: 一个简约的，功能丰富的 vuepress 文档&博客 主题
+      name: 蛋炒饭的前端笔记
+      tagline: 基于 VuePress 的 Plume 主题搭建的前端知识笔记站点
+      text: 记录日常学习和工作中的各种笔记
       actions:
         -
           theme: brand

@@ -24,6 +24,12 @@ export const notes = defineNotesConfig({
       link: '/examples',
       text: '组件&算法',
       sidebar: 'auto'
+    },
+    {
+      dir: 'others',
+      link: '/others',
+      text: '其它',
+      sidebar: 'auto'
     }
   ],
 })
