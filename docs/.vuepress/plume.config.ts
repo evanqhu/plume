@@ -13,6 +13,7 @@ export default defineThemeConfig({
   logo: '/avatar.svg',
   appearance: true,
   createTime: false, // 禁用创建时间
+  footer: false, // 禁用页脚
 
   /** 博主信息 */
   profile: {
