@@ -8,4 +8,5 @@ export const navbar = defineNavbarConfig([
   // { text: '归档', link: '/blog/archives/' },
   // 笔记相关
   { text: '工程化', link: '/notes/engineering/' },
+  { text: '组件&算法', link: '/notes/examples/' },
 ])

@@ -6,6 +6,7 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
+import path from 'path';
 
 export default defineUserConfig({
   base: '/',
@@ -29,6 +30,7 @@ export default defineUserConfig({
     // 博客配置
     blog: {
       // archives: false
+      exclude: ['components/**'] // 排除 components 目录
     },
     // 文章配置
     // article: "/article/",
@@ -40,7 +42,7 @@ export default defineUserConfig({
        */
       shiki: {
         //  强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
-        languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css', 'vue', 'scss', 'text'],
+        languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css', 'vue', 'scss', 'dotenv', 'nginx'],
         // 行号
         lineNumbers: false,
       },
@@ -79,6 +81,19 @@ export default defineUserConfig({
       //     kotlin: true,
       //   },
       // },
+
+      /** 
+       * markdown include
+       * 在使用 <!-- @include: path --> 导入文件语法时，@ 符号会被解析为文档源目录
+       */
+      markdownInclude: {
+        resolvePath: (file) => {
+          if (file.startsWith('@')) {
+            return file.replace('@', path.resolve(__dirname, '..'))
+          }
+          return file
+        }
+      },
 
       /**
        * 评论 comments
