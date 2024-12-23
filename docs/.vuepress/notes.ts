@@ -16,19 +16,16 @@ export const notes = defineNotesConfig({
     {
       dir: 'engineering',
       link: '/engineering',
-      text: '工程化',
       sidebar: 'auto'
     },
     {
       dir: 'examples',
       link: '/examples',
-      text: '组件&算法',
       sidebar: 'auto'
     },
     {
       dir: 'others',
       link: '/others',
-      text: '其它',
       sidebar: 'auto'
     }
   ],
