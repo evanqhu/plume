@@ -11,7 +11,7 @@ permalink: /examples/7iu7vf95/
 ::: demo-wrapper
 
 <script setup lang="ts">
-import { sparkline } from "@fnando/sparkline";
+import sparkline from "@source/components/sparkline.js";
 import { onMounted, useTemplateRef } from "vue";
 
 const sparklineRef = useTemplateRef("sparkline-ref");

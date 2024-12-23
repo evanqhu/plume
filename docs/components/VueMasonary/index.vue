@@ -154,21 +154,27 @@ const getImageStyle = (image: Image) => {
   };
 };
 
-/** 创建一个交叉观察器 */
-const intersectionOb = new IntersectionObserver((entries) => {
-  // 如果目标元素进入视口，则获取数据
-  if (entries[0].isIntersecting) {
-    fetchData();
-  }
-});
+/** 定义一个交叉观察器 */
+let intersectionOb: IntersectionObserver;
 
-/** 创建一个尺寸观察器 */
-const resizeOb = new ResizeObserver(setImagesPosition);
+/** 定义一个尺寸观察器 */
+let resizeOb: ResizeObserver;
 
 /** 当图片数组长度发生变化时重新布局 */
 watch(() => images.value.length, setImagesPosition);
 
 onBeforeMount(async () => {
+  // 基于 SSR 的考虑，在 onBeforeMount 钩子中定义观察器
+  // 交叉观察器
+  intersectionOb = new IntersectionObserver((entries) => {
+    // 如果目标元素进入视口，则获取数据
+    if (entries[0].isIntersecting) {
+      fetchData();
+    }
+  });
+  // 尺寸观察器
+  resizeOb = new ResizeObserver(setImagesPosition);
+
   // 请求数据
   await fetchData();
   // 观察瀑布流底部的「加载更多」元素

@@ -50,7 +50,7 @@ if (isMobile()) {
 
 该方法较为常用，`navigator.userAgent` 提供了浏览器和设备的详细信息，通过匹配常见的设备标识符可以区分移动端和 PC 环境。
 
-```jsx
+```js
 function isMobile() {
   const userAgent = navigator.userAgent.toLowerCase();
   return /mobile|android|iphone|ipad|ipod/.test(userAgent);
