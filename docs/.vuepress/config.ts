@@ -9,7 +9,7 @@ import { plumeTheme } from 'vuepress-theme-plume'
 import path from 'path';
 
 export default defineUserConfig({
-  base: '/',
+  base: '/plume/',
   lang: 'zh-CN',
   title: '蛋炒饭的前端笔记',
   description: 'A VuePress Site with Plume Theme',
