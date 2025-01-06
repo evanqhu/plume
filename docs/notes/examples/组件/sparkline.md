@@ -134,7 +134,7 @@ onMounted(() => {
 </script>
 ```
 
-分装成 Vue 组件。对源码进行简单修改，可以实现渐变填充 (去掉 removeChildren 方法，在 svg 中添加 defs 标签) 和修改端点类型
+封装成 Vue 组件。对源码进行简单修改，可以实现渐变填充 (去掉 removeChildren 方法，在 svg 中添加 defs 标签) 和修改端点类型
 
 ::: code-tabs
 @tab Sparkline.vue
