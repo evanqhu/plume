@@ -133,3 +133,55 @@ onMounted(() => {
 });
 </script>
 ```
+
+分装成 Vue 组件。对源码进行简单修改，可以实现渐变填充 (去掉 removeChildren 方法，在 svg 中添加 defs 标签) 和修改端点类型
+
+::: code-tabs
+@tab Sparkline.vue
+
+```vue :collapsed-lines
+<script setup lang="ts">
+import { onMounted, useTemplateRef } from "vue";
+import sparkline from "@/vendors/sparkline.js";
+
+defineOptions({
+  name: "TheSparkline",
+});
+
+interface Props {
+  sparklineData?: any[];
+}
+
+const sparklineRef = useTemplateRef("sparkline-ref");
+
+onMounted(() => {
+  if (!sparklineRef.value) return;
+  sparkline(sparklineRef.value, props.sparklineData || [], {
+    strokeLinejoin: "round",
+  });
+});
+</script>
+
+<template>
+  <svg ref="sparkline-ref" class="sparkline" width="100" height="50" stroke-width="2">
+    <defs>
+      <linearGradient id="gradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1dc47b" stop-opacity="0.35" />
+        <stop offset="100%" stop-color="#1dc47b" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+  </svg>
+</template>
+
+<style lang="scss" scoped>
+.sparkline {
+  stroke: #1dc47b;
+
+  :deep(.sparkline--fill) {
+    fill: url(#gradient1);
+  }
+}
+</style>
+```
+
+:::
