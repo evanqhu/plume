@@ -5,7 +5,9 @@ permalink: /others/xvxz48i9/
 ---
 
 ::: note
-待处理
+<https://www.yuque.com/tianyu-coder/openshare/ccpa0mz1pq213lhw>
+
+<https://git-scm.com/book/zh/v2/>
 :::
 
 ## 快速入门指南
@@ -50,6 +52,7 @@ git rm --cached <filename>
 git commit -m <msg>
 
 # 推送到远程仓库
+git push -u origin master # -u 参数表示关联远程仓库和本地分支
 git push origin master
 
 # 从远程仓库拉取
@@ -218,3 +221,69 @@ temp
 ```
 
 :::
+
+### 分支操作
+
+分支是 git 的一个重要特性，它可以让开发人员从主线上分离出来，在一个独立的线路上继续开发，最后可以灵活的选择合并分支，还是丢弃分支。
+
+- 创建分支
+
+```sh
+git branch <branchname>
+```
+
+- 查看分支
+
+```sh
+git branch # 查看本地分支
+git branch -v # 查看本地分支
+git branch -r # 查看远程分支
+```
+
+- 切换分支
+
+```sh
+git checkout <branchname> # 切换分支
+
+git checkout -b <branchname> # 创建并切换到新分支
+
+# 推荐使用 switch
+git switch <branchname> # 切换分支
+git switch -c <branchname> # 创建并切换到新分支
+```
+
+- 删除分支
+
+```sh
+git branch -d <branchname> # 删除分支
+
+git push <remote> -d <branch> # 删除远程分支
+git push origin -d feature
+```
+
+- 合并分支
+
+1️⃣ 快速合并
+
+例如我们有 master 和 test 两个分支，test 分支是领先于 master 分支的，且 test 分支包含 master 的所有历史记录，那么这时就可以触发 git 的快速合并。无需填写提交信息
+
+```sh
+git merge test # 将 test 分支合并到当前分支
+```
+
+2️⃣ 提交合并
+
+当进行分支合并时，若两个分支有不一致的版本，则会提示输提示输入提交信息，在当前分支形成一个新的提交记录。
+
+- 分支变基
+
+在 Git 中，合并（merge）和变基（rebase）都是用于整合来自不同分支的更改的操作，它们的区别如下：
+
+**合并**：将两个分支的历史合并在一起，git 会创建一个新的“合并提交”，所有的分支和合并点都会被保留在历史中，有完整的历史记录。
+
+<img src="./images/git-merge.gif" class="my-img zoom-50" />
+
+**变基**：将一个分支（test）上的提交重新应用到另一个分支（master）上，变基会重写项目历史，因为它实际上是在创建一系列新的提交，会产生一个更线性的历史记录，看起来更干净、更简单。
+
+<img src="./images/git-rebase.gif" class="my-img zoom-50" />
+
