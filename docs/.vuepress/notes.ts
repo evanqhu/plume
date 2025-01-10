@@ -27,6 +27,16 @@ export const notes = defineNotesConfig({
       dir: 'others',
       link: '/others',
       sidebar: 'auto'
+    },
+    {
+      dir: 'nuxt',
+      link: '/nuxt',
+      sidebar: 'auto'
+    },
+    {
+      dir: 'vue',
+      link: '/vue',
+      sidebar: 'auto'
     }
   ],
 })
