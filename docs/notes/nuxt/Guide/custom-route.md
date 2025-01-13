@@ -161,3 +161,25 @@ export default {
 ```
 
 :::
+
+### 4️⃣ 配置 nitro 规则
+
+::: code-tabs
+@tab nuxt.config.ts
+
+```ts
+export default defineNuxtConfig({
+  nitro: {
+    prerender: {
+      ignore: [
+        (route) => {
+          const regex = /.*\/(components|configs|modules|utils)(\/|$)/;
+          return regex.test(route);
+        },
+      ],
+    },
+  },
+});
+```
+
+:::
