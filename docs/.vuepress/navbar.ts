@@ -6,6 +6,7 @@ export const navbar = defineNavbarConfig([
   // 笔记相关
   {
     text: 'Vue',
+    activeMatch: '^/(vue|nuxt)/',
     items: [
       { text: 'Vue', link: '/notes/vue/', activeMatch: '/vue/' },
       { text: 'Nuxt', link: '/notes/nuxt/', activeMatch: '/nuxt/' },

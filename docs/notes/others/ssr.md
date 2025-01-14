@@ -1,5 +1,5 @@
 ---
-title: SSR
+title: 服务端渲染 SSR
 createTime: 2024/12/23 11:59:47
 permalink: /others/b5zoh32m/
 ---
@@ -28,12 +28,12 @@ Nuxt：<https://nuxt.com/docs/guide/concepts/rendering>
 
 ### 同构的服务端渲染 (SSR)
 
-同构的 SSR 是指在服务器端和客户端都渲染 Vue 组件（在 Nuxt 中叫做通用渲染 Universal Rendering）。服务器端渲染出初始的 HTML 字符串，然后将这些字符串发送到客户端。客户端接收到 HTML 字符串后，浏览器会将其插入到页面中，同时 Vue.js 会接管该文档，曾经在服务端上运行的 JavaScript 代码再次在客户端上运行，然后通过水合（Hydration）过程将 DOM 状态同步到客户端上。当水合完成后，客户端的 Vue.js 应用程序就完全接管了页面的控制权，包括响应用户的交互和更新页面内容。
+同构的 SSR 是指**在服务器端和客户端都渲染 Vue 组件**（在 Nuxt 中叫做**通用渲染 Universal Rendering**）。服务器端渲染出初始的 HTML 字符串，然后将这些字符串发送到客户端。客户端接收到 HTML 字符串后，浏览器会将其插入到页面中，同时 Vue.js 会接管该文档，曾经在服务端上运行的 JavaScript 代码**再次**在客户端上运行，然后通过**水合**（Hydration）过程将 DOM 状态同步到客户端上。当水合完成后，客户端的 Vue.js 应用程序就完全接管了页面的控制权，包括响应用户的交互和更新页面内容。
 
 - 用户可以立即访问页面内容，因为浏览器显示静态内容的速度比 JavaScript 生成的内容快得多。同时，在水合过程中保留了 Web 应用程序的交互性
 - 通用渲染将页面的整个 HTML 内容作为经典服务器应用程序传递给浏览器。网络爬虫可以直接索引页面的内容，这使得通用渲染成为您想要快速索引的任何内容的绝佳选择
 
-<img src="./images/ssr.svg" alt="ssr.svg" class="my-img" />
+<img src="./images/ssr.png" class="my-img" />
 
 ## 实现
 
