@@ -10,7 +10,7 @@ permalink: /others/82pr0swv/
 
 ## 一个简单的示例
 
-::: normal-demo
+::: demo html
 
 ```html
 <svg version="1.1" baseProfile="full" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@ SVG 文件全局有效的规则是“后来居上”，越后面的元素越可�
 ## 坐标定位
 
 对于所有元素，SVG 使用的坐标系统或者说网格系统，和 Canvas 用的差不多（所有计算机绘图都差不多）。这种坐标系统是：以页面的左上角为 (0,0) 坐标点，坐标以像素为单位，x 轴正方向是向右，y 轴正方向是向下。
-<img src="./examples/default-grid.png" class="my-img" />
+<img src="./images/default-grid.png" class="my-img" />
 
 示例：
 
@@ -77,7 +77,7 @@ SVG 文件全局有效的规则是“后来居上”，越后面的元素越可�
 
 要想插入一个形状，你可以在文档中创建一个元素。不同的元素对应着不同的形状，并且使用不同的属性来定义图形的大小和位置。
 
-::: normal-demo All Base Shapes
+::: demo html title="All Base Shapes"
 
 ```html
 <svg width="200" height="250" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -213,7 +213,7 @@ path 元素的形状是通过属性 d 定义的，属性 d 的值是一个“命
 - Z = closepath()：关闭路径，即用一条直线连接当前点与路径的起点。
 
 画一个简单的矩形
-::: normal-demo
+::: demo html
 
 ```html
 <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -264,7 +264,7 @@ path 元素的形状是通过属性 d 定义的，属性 d 的值是一个“命
 
 语法和在 HTML 里使用 CSS 一样，只不过你要把 background-color、border 改成 fill 和 stroke。
 
-::: normal-demo
+::: demo html
 
 ```html
 <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -286,7 +286,7 @@ CSS 可以利用 style 属性插入到元素的行间，也可以被移到你所
 
 线性渐变沿着直线改变颜色，要插入一个线性渐变，你需要在 SVG 文件的 defs 元素内部，创建一个 `<linearGradient>` 节点。
 
-::: normal-demo
+::: demo html
 
 ```html
 <svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -322,7 +322,7 @@ CSS 可以利用 style 属性插入到元素的行间，也可以被移到你所
 
 径向渐变从中心点向外创建颜色渐变，要插入一个径向渐变，你需要在 SVG 文件的 defs 元素内部，创建一个 `<radialGradient>` 节点。
 
-::: normal-demo
+::: demo html
 
 ```html
 <?xml version="1.0" standalone="no"?>
@@ -355,7 +355,7 @@ patterns（图案）是 SVG 中用到的最让人混淆的填充类型之一。�
 
 使用 `<text>` 标签来创建文本。`<text>` 标签的 x 和 y 属性决定了文本在视口中显示的位置。
 
-::: normal-demo
+::: demo html
 
 ```html
 <svg width="120" height="30" version="1.1" xmlns="http://www.w3.org/2000/svg">
