@@ -40,5 +40,5 @@ pnpm vp-update
 - 对于 notes 中的系统性笔记 (有顺序的)，有两种方案：
   - 依然使用 autoFrontmatter 自动生成 permalink，并且配置 sidebar 为 auto，但是在文件名前添加序号用于排序 (感觉这样是最方便的)
   - 手动配置 permalink 为文件夹名 + 文件名，然后手动依次配置 sidebar，这样就可以自定义顺序了 (感觉很麻烦)
-- 对于展示自定义 Vue 组件，放在 /docs/components 文件夹下，使用时先用 demo-wrapper 包裹，再通过绝对路径引入，如 `import Carousel3D from "@source/components/Carousel3D/Carousel3D.vue"`
-- 展示外部文件的代码，通过 include 引入，可以使用相对路径
+- 对于代码演示，使用 `@[demo vue](url)` 引入，可以使用相对路径，将 Vue 组件放在同级目录即可
+- 展示外部文件的代码，通过 `@[code vue](url) 引入`，可以使用相对路径

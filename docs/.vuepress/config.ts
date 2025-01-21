@@ -52,7 +52,7 @@ export default defineUserConfig({
        * @see https://theme-plume.vuejs.press/config/plugins/markdown-enhance/
        */
       markdownEnhance: {
-        demo: true,
+        demo: true, // 禁用旧的代码演示功能
         //   include: true,
         //   chart: true,
         //   echarts: true,
@@ -64,23 +64,24 @@ export default defineUserConfig({
        *  markdown power
        * @see https://theme-plume.vuejs.press/config/plugin/markdown-power/
        */
-      // markdownPower: {
-      //   pdf: true,
-      //   caniuse: true,
-      //   plot: true,
-      //   bilibili: true,
-      //   youtube: true,
-      //   icons: true,
-      //   codepen: true,
-      //   replit: true,
-      //   codeSandbox: true,
-      //   jsfiddle: true,
-      //   repl: {
-      //     go: true,
-      //     rust: true,
-      //     kotlin: true,
-      //   },
-      // },
+      markdownPower: {
+        demo: true, // 启用新的代码演示功能
+        // pdf: true,
+        // caniuse: true,
+        // plot: true,
+        // bilibili: true,
+        // youtube: true,
+        // icons: true,
+        // codepen: true,
+        // replit: true,
+        // codeSandbox: true,
+        // jsfiddle: true,
+        // repl: {
+        //   go: true,
+        //   rust: true,
+        //   kotlin: true,
+        // },
+      },
 
       /** 
        * markdown include
