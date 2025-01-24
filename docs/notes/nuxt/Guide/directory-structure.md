@@ -749,3 +749,152 @@ const { data } = await useFetch("/bonjour");
 :::
 
 ### 服务器中间件
+
+<https://h3.unjs.io/guide/event-handler>
+
+Nuxt 将自动读取 `~/server/middleware` 中的任何文件以创建您的项目的服务器中间件。通过 `defineEventHandler()` 创建中间件，`event` 参数是 H3 的事件对象
+
+中间件处理程序将在任何其他服务器路由之前运行每个请求，以添加或检查标头、记录请求或扩展事件请求对象。中间件处理程序不应返回任何内容（也不要关闭或响应请求）。
+
+::: code-tabs
+@tab server/middleware/log.ts
+
+```ts
+export default defineEventHandler((event) => {
+  console.log("New request: " + getRequestURL(event));
+  const originHost = getHeader(event, "host")?.split(":")[0] || "localhost";
+  event.context.auth = { user: 123 };
+  event.node.res.setHeader("Content-Type", "text/plain");
+});
+```
+
+:::
+
+### 服务器插件
+
+Nuxt 将自动读取 `~/server/plugins` 目录中的任何文件，并将它们注册为 Nitro 插件。这允许扩展 Nitro 的运行时行为并挂钩到生命周期事件。
+
+::: code-tabs
+@tab server/plugins/extend-html.ts
+
+```ts
+export default defineNitroPlugin((nitroApp) => {
+  nitroApp.hooks.hook("render:html", (html, { event }) => {
+    html.htmlAttrs.push('lang="en"');
+    // console.log('🚀🚀🚀 event.context.config: ', event.context.config)
+    // 设置 html 的 lang 属性
+  });
+  // // You can also intercept the response here.
+  // nitroApp.hooks.hook('render:response', (response, { event }) => {
+  //   console.log("🚀🚀🚀  response: ", response);
+  // })
+});
+```
+
+:::
+
+## ⚙️ shared
+
+使用 `shared/` 目录在 Vue 应用和 Nitro 服务器之间共享功能。
+
+::: note
+`shared/` 目录中的代码不能导入任何 Vue 或 Nitro 代码。
+:::
+
+示例：在 `shared/utils` 中创建一个 `capitalize` 函数。
+
+::: code-tabs
+@tab shared/utils/capitalize.ts 具名导出
+
+```ts
+export const capitalize = (input: string) => {
+  return input[0] ? input[0].toUpperCase() + input.slice(1) : "";
+};
+```
+
+@tab shared/utils/capitalize.ts 默认导出
+
+```ts
+export default function capitalize(input: string) {
+  return input[0] ? input[0].toUpperCase() + input.slice(1) : "";
+}
+```
+
+:::
+
+现在可以在 Vue 组件和 Nitro 服务器中使用 `capitalize` 函数。
+
+::: code-tabs
+@tab app.vue
+
+```vue :collapsed-lines
+<script setup lang="ts">
+const hello = capitalize("hello");
+</script>
+
+<template>
+  <div>
+    {{ hello }}
+  </div>
+</template>
+```
+
+@tab server/api/hello.ts
+
+```ts
+export default defineEventHandler((event) => {
+  return {
+    hello: capitalize("hello"),
+  };
+});
+```
+
+:::
+
+::: note
+只有 `shared/utils` 和 `shared/types` 目录中的文件会被自动导入。这些目录的子目录中的文件不会被自动导入。
+:::
+
+## ⚙️ utils
+
+`utils/` 目录的主要目的是允许在你的 Vue 组合式函数和其他自动导入的工具函数之间进行语义区分。
+
+### 导出
+
+::: code-tabs
+@tab utils/index.ts
+
+```ts
+export const { format: formatNumber } = Intl.NumberFormat("en-GB", {
+  notation: "compact",
+  maximumFractionDigits: 1,
+});
+```
+
+@tab utils/randomEntry.ts
+
+```ts
+// 它将作为 randomEntry()（文件名不带扩展名的驼峰式命名）可用
+export default function (arr: Array<any>) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+```
+
+:::
+
+### 使用
+
+::: code-tabs
+@tab app.vue
+
+```vue :collapsed-lines
+<template>
+  <p>{{ formatNumber(1234) }}</p>
+</template>
+```
+
+:::
+
+::: note
+仅顶层文件自动导入
+:::
