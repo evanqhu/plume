@@ -32,21 +32,21 @@ permalink: /nuxt/plpp872j/
 
 :::
 
-## .nuxt
+## ⚙️ .nuxt
 
 Nuxt 在开发过程中使用 `.nuxt/` 目录来生成您的 Vue 应用程序。
 
-## .output
+## ⚙️ .output
 
 Nuxt 在为您的应用程序构建时会创建 `.output/` 目录。
 
 里面的子目录 `/public` 是静态资源文件；`/server` 是 Nitro 服务器文件
 
-## assets
+## ⚙️ assets
 
 静态资源文件，如图片、字体等。一般可包含 `/icons` `/images` `/styles` 等目录
 
-## components
+## ⚙️ components
 
 `/components` 目录是您放置所有非路由组件的位置。Nuxt 会自动导入此目录中的任何组件 (包含嵌套目录)。
 
@@ -141,7 +141,7 @@ export default defineNuxtConfig({
 
 如果组件是仅在**客户端**渲染的，则可以在组件上添加 `.client` 后缀。
 
-## composables
+## ⚙️ composables
 
 `/composables` 目录用于创建组合式函数。仅顶层目录中的文件会被导出，不包含嵌套目录。
 
@@ -241,7 +241,7 @@ export default defineNuxtPlugin(() => {
 
 :::
 
-## content
+## ⚙️ content
 
 使用 `/content` 目录为你的应用程序创建一个基于文件的内容管理系统 CMS。
 
@@ -279,7 +279,7 @@ npx nuxi module add content
 
 :::
 
-## layouts
+## ⚙️ layouts
 
 Nuxt 提供了一个布局框架，用于将常见的 UI 模式提取到可重用的布局中。
 
@@ -332,7 +332,7 @@ definePageMeta({
 
 如果您在嵌套目录中有布局，则布局的名称将基于其自己的路径目录和文件名，并删除重复的段
 
-## middleware
+## ⚙️ middleware
 
 Nuxt 提供**路由中间件**，用于在导航到特定路由之前运行代码。
 
@@ -435,10 +435,317 @@ export default defineNuxtRouteMiddleware((to) => {
 
 :::
 
-## pages
+## ⚙️ pages
 
 Nuxt 提供了基于文件的路由功能，可以在你的 web 应用中创建路由。
 
-## server
+### 使用
 
-Nuxt 提供了一个内置服务器。
+Nuxt 将自动为你的 `~/pages/` 目录中的每个页面创建一个路由。`pages/index.vue` 文件将被映射到你的应用程序的 `/` 路由。
+
+页面必须有一个根元素，以允许路由过渡。HTML 注释也被认为是元素。
+
+### 动态路由
+
+如果在你放置任何内容在**方括号**中，它将变成一个**动态路由**参数。
+
+如果你希望一个参数是**可选的**，你必须将它用**双方括号**括起来，例如 `~/pages/[[slug]]/index.vue` 或 `~/pages/[[slug]].vue` 将会匹配 `/` 和 `/test`。
+
+可以通过 `$route.params.slug` 访问动态路由参数。
+
+### 捕获所有路由
+
+如果你需要一个捕获所有路由，你通过创建一个名为 `[...slug].vue` 的文件。这将匹配**所有**该路径下的路由。
+
+### 嵌套路由
+
+可以使用 `<NuxtPage>` 在 `<NuxtPage>` 组件内部显示嵌套路由。
+
+::: file-tree
+
+- pages
+  - parent
+    - index.vue
+    - child.vue
+  - parent.vue
+
+:::
+
+::: code-tabs
+@tab pages/parent.vue
+
+```vue :collapsed-lines
+<template>
+  <div>
+    <!-- 访问以 /parent 开头的路由时展示 -->
+    <h1>我是父视图</h1>
+    <NuxtPage :foobar="123" />
+  </div>
+</template>
+```
+
+@tab pages/parent/index.vue
+
+```vue :collapsed-lines
+<script setup lang="ts">
+const props = defineProps(["foobar"]);
+</script>
+
+<template>
+  <div>
+    <!-- 访问 /parent 路由时展示 -->
+    <h2>我是父视图的 index 子视图</h2>
+  </div>
+</template>
+```
+
+@tab pages/parent/index.vue
+
+```vue :collapsed-lines
+<template>
+  <div>
+    <!-- 访问 /parent/child 路由时展示 -->
+    <h2>我是父视图的 child 子视图</h2>
+  </div>
+</template>
+```
+
+:::
+
+::: note
+可以使用**路由组**将嵌套路由分组在一起。
+:::
+
+### 路由组
+
+在某些情况下，您可能希望以不影响基于文件的路由的方式将一组路由分组在一起。为此，您可以将文件放入用括号包装的文件夹中。
+
+::: file-tree
+
+- pages
+  - index.vue
+  - (policies)
+    - privicy-policy.vue
+    - terms-of-service.vue
+
+:::
+
+### 页面元数据
+
+可以通过 `definePageMeta()` 函数为页面添加元数据。
+
+<https://nuxt.com/docs/api/utils/define-page-meta>
+
+### 程序化导航
+
+使用 `navigateTo()` 进行程序化导航。它接受与 `useRouter().push()` 相同的参数。
+
+### 仅客户端或服务端页面
+
+通过使用 `.client.vue` 或 `.server.vue` 文件扩展名，你可以创建仅在客户端或服务端渲染的页面。
+
+## ⚙️ plugins
+
+<https://nuxt.com/docs/guide/directory-structure/plugins>
+
+Nuxt 提供了一个插件系统，以便在创建 Vue 应用程序时使用 Vue 插件等。
+
+- 目录内的所有插件都会自动注册，你无需在 `nuxt.config` 中单独添加它们。
+- 可以在文件名中使用 `.server` 或 `.client` 后缀，以仅在服务器端或客户端加载插件。
+- 只有目录顶层的文件（或任何子目录中的索引文件）才会被自动注册为插件。
+
+要在子目录中添加插件，你可以在 `nuxt.config.ts` 中使用 `plugins` 选项：
+
+::: code-tabs
+@tab nuxt.config.ts
+
+```ts
+export default defineNuxtConfig({
+  plugins: ["~/plugins/bar/baz", "~/plugins/bar/foz"],
+});
+```
+
+:::
+
+### 创建插件
+
+传递给插件的唯一参数是 `nuxtApp`。
+
+::: code-tabs
+@tab plugins/foo.ts
+
+```ts
+export default defineNuxtPlugin((nuxtApp) => {
+  // 使用 nuxtApp 进行某些操作
+});
+```
+
+:::
+
+也可以使用**对象语法**创建插件，具体参考文档。
+
+### 提供辅助函数
+
+如果你想在 NuxtApp 实例上提供一个辅助函数，可以在插件中返回它并在 `provide` 键下。在组件中，你可以使用 `useNuxtApp()` 获取 NuxtApp 实例，从中获取你的函数。
+
+::: code-tabs
+@tab plugins/foo.ts
+
+```ts
+export default defineNuxtPlugin(() => {
+  return {
+    provide: {
+      hello: (msg: string) => `Hello ${msg}!`,
+    },
+  };
+});
+```
+
+@tab pages/index.vue
+
+```vue :collapsed-lines
+<script setup lang="ts">
+// 你也可以在这里使用它
+const { $hello } = useNuxtApp();
+</script>
+
+<template>
+  <div>
+    {{ $hello("world") }}
+  </div>
+</template>
+```
+
+:::
+
+::: note
+请注意，我们强烈建议使用 **组合式函数** 而不是提供辅助函数，以避免污染全局命名空间并保持主捆绑包条目小巧。
+:::
+
+### Vue 插件
+
+您可以使用 `defineNuxtPlugin()` 创建 Vue 插件。
+
+::: code-tabs
+@tab plugins/foo.ts
+
+```ts
+import VueGtag, { trackRouter } from "vue-gtag-next";
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(VueGtag, {
+    property: {
+      id: "GA_MEASUREMENT_ID",
+    },
+  });
+  trackRouter(useRouter());
+});
+```
+
+:::
+
+### Vue 指令
+
+同样，您可以在插件中注册一个自定义的 Vue 指令。
+
+::: code-tabs
+@tab plugins/foo.ts
+
+```ts
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.directive("focus", {
+    mounted(el) {
+      el.focus();
+    },
+    getSSRProps(binding, vnode) {
+      // you can provide SSR-specific props here
+      return {};
+    },
+  });
+});
+```
+
+:::
+
+### 全局组件
+
+可以在插件中注册全局组件。
+
+::: code-tabs
+@tab plugins/foo.ts
+
+```ts
+import "virtual:svg-icons-register";
+import SvgIcon from "~/components/SvgIcon.vue";
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.component("svg-icon", SvgIcon);
+});
+```
+
+:::
+
+## ⚙️ server
+
+Nuxt 提供了一个内置服务器，`/server` 目录用于注册应用程序的 API 和服务器处理程序。
+
+::: file-tree
+
+- server
+  - api 服务端路由
+    - hello.ts
+  - routes 服务端路由
+    - bonjour.ts
+  - middleware 中间件
+    - log.ts
+  - plugins 插件
+    - extend-html.ts
+
+:::
+
+### 服务器路由
+
+可以在 `/server/api` 或 `/server/routes` 目录中创建服务器路由。
+
+::: code-tabs
+@tab server/api/hello.ts
+
+```ts
+export default defineEventHandler((event) => {
+  return {
+    hello: "world",
+  };
+});
+```
+
+@tab server/routes/bonjour.ts
+
+```ts
+export default defineEventHandler(() => "Bonjour!");
+```
+
+:::
+
+`/server/api` 目录中的文件会自动在其路由前加上 `/api` 前缀。
+
+要将服务器路由添加到没有 `/api` 前缀，请将它们放入 `~/server/routes` 目录。
+
+可以在页面中调用这些 API 接口
+
+::: code-tabs
+@tab pages/index.vue
+
+```vue :collapsed-lines
+<script setup lang="ts">
+const { data } = await useFetch("/api/hello");
+const { data } = await useFetch("/bonjour");
+</script>
+
+<template>
+  <pre>{{ data }}</pre>
+</template>
+```
+
+:::
+
+### 服务器中间件

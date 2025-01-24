@@ -41,7 +41,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
 ```vue :collapsed-lines
 <script setup lang="ts">
 definePageMeta({
-  name: 'SomePage', // 路由名称
+  name: 'SomePage', // 路由名称，通过 route.meta.name 访问
+  title: 'Some Page', // 通过 route.meta.title 访问
   path: '/:channel(channel[1-9]\\d?)', // 页面路径，可以用自定义正则表达式
   layout: "default", // 页面布局
   validate: () => true,
