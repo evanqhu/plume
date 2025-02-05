@@ -12,4 +12,5 @@
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml"
   },
+  "Codegeex.RepoIndex": true,
 }
