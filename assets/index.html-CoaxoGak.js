@@ -1,0 +1,1 @@
+import{_ as e,e as t,o as a}from"./app-fOmQOI4N.js";const n={};function l(r,o){return a(),t("div")}const i=e(n,[["render",l],["__file","index.html.vue"]]),s=JSON.parse('{"path":"/blog/","title":"博客","lang":"zh-CN","frontmatter":{"lang":"zh-CN","title":"博客","gitInclude":[],"draft":true},"headers":[],"git":{},"filePathRelative":null,"type":"blog"}');export{i as comp,s as data};
