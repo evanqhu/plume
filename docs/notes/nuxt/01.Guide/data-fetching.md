@@ -283,10 +283,10 @@ const { status, data: comments } = useFetch("/api/comments", {
 
 ### 封装 1️⃣ （推荐使用）
 
-- 在 `composables/useRequest.ts` 中封装自定义的请求方法，可设置 baseURL 和响应拦截器等
+- 在 `utils/request.ts` 中封装自定义的请求方法，可设置 baseURL 和响应拦截器等
 - 在 `api/modules/xxx.ts` 中定义各模块各接口的请求方法
-- 在 `api/index.ts` 中汇总导出所有模块的请求方法
-- 在 `composables/index.ts` 中定义 `useApi` hook，方便请求方法的使用
+- 在 `api/index.ts` 中汇总导出所有模块的请求方法并导出
+- 在 `nuxt.config.ts` 中配置自动导入
 - 在组件中使用封装的请求方法
 
 #### 缺点
@@ -295,7 +295,7 @@ const { status, data: comments } = useFetch("/api/comments", {
 2. 不方便传递 `$fetch` 的其他参数
 
 ::: code-tabs
-@tab composables/useRequest.ts
+@tab utils/request.ts
 
 ```ts
 // API 接口请求 (如果有其他后端接口地址，封装其他的组合式函数)
@@ -310,17 +310,26 @@ export type RequestParams = NitroFetchOptions<
 export const customFetch = $fetch.create({
   // 设置超时时间为 20 秒
   timeout: 1000 * 20,
-  credentials: "include",
+  credentials: "include", // 携带 cookie
   // 请求拦截器
   onRequest({ options }) {
-    // NOTE 设置请求根路径
+    // 设置请求根路径
     const runtimeConfig = useRuntimeConfig();
     options.baseURL = runtimeConfig.public.apiBase;
-    // NOTE 将客户端的 cookie 添加到服务端的请求头中 (可以在请求函数中设置，不在这里进行全局设置；也可以考虑仅在此处传递 cookie)
-    const headers = useRequestHeaders(["cookie"]);
-    Object.entries(headers).forEach(([key, value]) => {
-      options.headers.set(key, value);
-    });
+
+    // 在服务端请求时，携带客户端的 cookie
+    const userAuth = useCookie(TOKEN_KEY); // 服务端可以读取到客户端的 cookie
+    if (userAuth.value) {
+      options.headers.set("cookie", `${TOKEN_KEY}=${userAuth.value}`);
+      // Add Authorization header
+      // options.headers.set('Authorization', `Bearer ${userAuth.value}`)
+    }
+
+    // 也可使用 useRequestHeaders() 将客户端的 cookie 添加到服务端的请求头中
+    // const headers = useRequestHeaders(['cookie'])
+    // Object.entries(headers).forEach(([key, value]) => {
+    //   options.headers.set(key, value)
+    // })
   },
   // 响应拦截器
   onResponse({ response }) {
@@ -385,56 +394,6 @@ export const logout = async () => {
 import * as defaultApi from "./modules/default";
 import * as userApi from "./modules/user";
 
-export default {
-  defaultApi,
-  userApi,
-};
-```
-
-@tab composables/index.ts
-
-```ts
-// 定义通用的组合式函数
-import api from "~/api/index";
-
-/** 暴露所有的网络请求函数 */
-export const useApi = () => api;
-```
-
-@tab pages/index.vue
-
-```vue :collapsed-lines
-<script setup lang="ts">
-const { defaultApi } = useApi();
-
-/** 获取推荐列表 */
-const { data: recommendationListData } = useLazyAsyncData(
-  "recommendationList",
-  () => defaultApi.fetchRecommendationList(),
-  {
-    transform: (data) => data.list || [],
-  }
-);
-</script>
-```
-
-:::
-
-#### 优化
-
-1. 删除 `composables/index.ts`，无需使用 `useApi()`
-2. 修改 `api/index.ts`
-3. 在 `nuxt.config.ts` 中配置自动导入
-4. 在组件中直接使用 `api.defaultApi.someMethod()`
-
-::: code-tabs
-@tab api/index.ts
-
-```ts
-// 汇总各模块请求函数，统一导出
-import * as defaultApi from "./modules/default";
-import * as userApi from "./modules/user";
-
 export const api = {
   defaultApi,
   userApi,
@@ -455,7 +414,14 @@ export default defineNuxtConfig({
 
 ```vue :collapsed-lines
 <script setup lang="ts">
-const { data } = useLazyAsyncData(api.defaultApi.fetchRecommendationList);
+/** 获取推荐列表 */
+const { data: recommendationListData } = useLazyAsyncData(
+  "recommendationList",
+  () => api.defaultApi.fetchRecommendationList(),
+  {
+    transform: (data) => data.list || [],
+  }
+);
 </script>
 ```
 

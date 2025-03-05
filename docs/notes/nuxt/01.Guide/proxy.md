@@ -171,20 +171,22 @@ NUXT_PUBLIC_API_BASE = 'https://api.pixelcookai.com'
 - 部署到测试或正式环境后，baseURL 为绝对路径，不会走 Nitro 代理，而是直接发送请求
 
 ::: code-tabs
-@tab composables/useRequest.ts
+@tab utils/request.ts
 
 ```ts
 const customFetch = $fetch.create({
   onRequest({ options }) {
-    // NOTE 设置请求根路径
+    // 设置请求根路径
     const runtimeConfig = useRuntimeConfig();
     options.baseURL = runtimeConfig.public.apiBase;
 
-    // NOTE 将客户端的 cookie 添加到服务端的请求头中 (可以在请求函数中设置，不在这里进行全局设置；也可以考虑仅在此处传递 cookie)
-    const headers = useRequestHeaders(["cookie"]);
-    Object.entries(headers).forEach(([key, value]) => {
-      options.headers.set(key, value);
-    });
+    // 在服务端请求时，携带客户端的 cookie
+    const userAuth = useCookie(TOKEN_KEY); // 服务端可以读取到客户端的 cookie
+    if (userAuth.value) {
+      options.headers.set("cookie", `${TOKEN_KEY}=${userAuth.value}`);
+      // Add Authorization header
+      // options.headers.set('Authorization', `Bearer ${userAuth.value}`)
+    }
   },
 });
 ```
