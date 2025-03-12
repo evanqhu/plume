@@ -26,6 +26,8 @@ permalink: /nuxt/uw0m6na6/
 
 ### 1️⃣ definePageMeta
 
+#### 阻止生成路由
+
 在 `desktop.vue` 和 `mobile.vue` 组件中通过 `definePageMeta` 来阻止生成路由
 
 ::: code-tabs
@@ -51,6 +53,8 @@ definePageMeta({
 ::: note
 在 `definePageMeta` 中可以通过 `path` 配置项来自定义路由路径
 :::
+
+#### 分渠道路由
 
 ::: code-tabs
 @tab pages/index.vue
@@ -158,6 +162,33 @@ export default {
     },
   ],
 } satisfies RouterConfig;
+```
+
+:::
+
+#### 分渠道路由
+
+::: code-tabs
+@tab app/router.options.ts
+
+```ts
+import type { RouterConfig } from "@nuxt/schema";
+
+export default <RouterConfig>{
+  routes: (_routes) => {
+    const routes = [..._routes];
+
+    // 为所有路由添加可选的 channel 前缀
+    routes.forEach((route) => {
+      // 检查路径中是否已经包含 channel 参数
+      if (!route.path.includes(":channel(channel[1-9]")) {
+        route.path = `/:channel(channel[1-9]\\d?)?${route.path}`;
+      }
+    });
+
+    return routes;
+  },
+};
 ```
 
 :::

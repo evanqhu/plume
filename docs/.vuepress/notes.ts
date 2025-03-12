@@ -37,6 +37,11 @@ export const notes = defineNotesConfig({
       dir: 'vue',
       link: '/vue',
       sidebar: 'auto'
+    },
+    {
+      dir: 'styles',
+      link: '/styles',
+      sidebar: 'auto'
     }
   ],
 })

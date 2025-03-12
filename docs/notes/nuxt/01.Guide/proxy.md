@@ -141,13 +141,16 @@ export default defineEventHandler(async (event) => {
 
 ## 最佳实践
 
-### 环境变量
+### 1️⃣ 环境变量
 
 ::: code-tabs
 @tab .env.development
 
 ```sh
 NUXT_PUBLIC_API_BASE = '/api'
+
+# 本地开发环境接口代理地址
+DEV_PROXY_URL = 'http://test.ptc-jupiter.ptc.sg2.api'
 ```
 
 @tab .env.stage
@@ -164,7 +167,7 @@ NUXT_PUBLIC_API_BASE = 'https://api.pixelcookai.com'
 
 :::
 
-### 封装请求方法
+### 2️⃣ 封装请求方法
 
 - 开发环境下使用 `/api` 作为 baseURL，这样服务端和客户端的所有请求都会被 Nitro 代理，走 `server/api/[...].ts` 里面的逻辑
 - 服务端代理请求时，Nitro 不会携带客户端这边的 cookie，需要使用 `useRequestHeaders` 手动添加
@@ -184,8 +187,6 @@ const customFetch = $fetch.create({
     const userAuth = useCookie(TOKEN_KEY); // 服务端可以读取到客户端的 cookie
     if (userAuth.value) {
       options.headers.set("cookie", `${TOKEN_KEY}=${userAuth.value}`);
-      // Add Authorization header
-      // options.headers.set('Authorization', `Bearer ${userAuth.value}`)
     }
   },
 });
@@ -193,7 +194,7 @@ const customFetch = $fetch.create({
 
 :::
 
-### Nitro 代理配置
+### 3️⃣ Nitro 代理配置
 
 ::: code-tabs
 @tab server/api/[...].ts
@@ -203,7 +204,7 @@ import { joinURL } from "ufo";
 
 export default defineEventHandler(async (event) => {
   // 1. 获取代理地址 这里只需要写开发环境的代理地址即可
-  const proxyUrl = "https://jsonplaceholder.typicode.com/";
+  const proxyUrl = process.env.DEV_PROXY_URL || ''
 
   // 2. 检查代理路径
   const path = event.path.replace(/^\/api/, "");

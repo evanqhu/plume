@@ -297,7 +297,7 @@ const { status, data: comments } = useFetch("/api/comments", {
 ::: code-tabs
 @tab utils/request.ts
 
-```ts
+```ts :collapsed-lines
 // API 接口请求 (如果有其他后端接口地址，封装其他的组合式函数)
 import type { NitroFetchOptions, NitroFetchRequest } from "nitropack";
 
@@ -343,7 +343,11 @@ export const customFetch = $fetch.create({
 
     if (!success) {
       console.error("接口错误：", msg);
-      return Promise.reject(new Error(msg || "接口错误"));
+      // 创建一个包含完整错误信息的错误对象
+      const error = new Error(msg || "接口错误");
+      // 将接口返回的所有信息附加到错误对象上
+      Object.assign(error, { code, data, success });
+      throw error;
     }
 
     // 通过修改 response._data 来修改响应数据
