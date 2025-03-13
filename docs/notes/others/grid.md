@@ -5,6 +5,7 @@ permalink: /others/hsufmzuf/
 ---
 
 ::: note
+<https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout>
 <https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html>
 :::
 
@@ -12,7 +13,7 @@ permalink: /others/hsufmzuf/
 
 Flex 布局是轴线布局，只能指定"项目"针对轴线的位置，可以看作是一维布局。Grid 布局则是将容器划分成"行"和"列"，产生单元格，然后指定"项目所在"的单元格，可以看作是二维布局。Grid 布局远比 Flex 布局强大。
 
-## 基本概念
+## 01 基本概念
 
 ### 容器和项目
 
@@ -38,29 +39,22 @@ Flex 布局是轴线布局，只能指定"项目"针对轴线的位置，可以�
 
 正常情况下，n 行有 n + 1 根水平网格线，m 列有 m + 1 根垂直网格线，比如三行就有四根水平网格线。
 
-## 容器属性
+## 02 容器属性
 
 Grid 布局的属性分成两类。一类定义在容器上面，称为容器属性；另一类定义在项目上面，称为项目属性。这部分先介绍容器属性。
 
 ### display
 
-`display: grid` 指定一个容器采用网格布局，默认为块级元素。
+`display: grid` 指定一个容器采用网格布局，默认为块级元素。`display: inline-grid` 指定行内元素采用网格布局。
 
 ```css
 .container {
   display: grid;
-}
-```
-
-`display: inline-grid` 指定行内元素采用网格布局。
-
-```css
-.container {
   display: inline-grid;
 }
 ```
 
-### grid-template-X
+### grid-template-X 网格轨道
 
 容器指定了网格布局以后，接着就要划分行和列。`grid-template-columns` 属性定义每一列的列宽，`grid-template-rows` 属性定义每一行的行高。
 
@@ -76,7 +70,7 @@ Grid 布局的属性分成两类。一类定义在容器上面，称为容器属
 
 除了使用绝对单位，也可以使用百分比。
 
-#### `repeat()`
+#### `repeat()` 函数
 
 有时候，重复写同样的值非常麻烦，尤其网格很多时。这时，可以使用 `repeat()` 函数，简化重复的值。该函数第一个参数为重复的次数，第二个参数为所要重复的值或模式。
 
@@ -92,9 +86,9 @@ Grid 布局的属性分成两类。一类定义在容器上面，称为容器属
 }
 ```
 
-#### `auto-fill`
+#### `auto-fill` 单元格大小固定，数量不固定
 
-有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用 auto-fill 关键字表示自动填充。
+有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用 `auto-fill` 关键字表示自动填充。
 
 ```css
 .container {
@@ -105,12 +99,22 @@ Grid 布局的属性分成两类。一类定义在容器上面，称为容器属
 ```
 
 ::: note
-除了 auto-fill，还有一个关键字 auto-fit，两者的行为基本是相同的。只有当容器足够宽，可以在一行容纳所有单元格，并且单元格宽度不固定的时候，才会有行为差异：auto-fill 会用空格子填满剩余宽度，auto-fit 则会尽量扩大单元格的宽度。
+除了 `auto-fill`，还有一个关键字 `auto-fit`，两者的行为基本是相同的。只有当容器足够宽，可以在一行容纳所有单元格，并且单元格宽度不固定的时候，才会有行为差异：`auto-fill` 会用空格子填满剩余宽度，`auto-fit` 则会尽量扩大单元格的宽度。
 :::
 
-#### `fr`
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  /* 上面代码表示每列宽度最小为 150px，然后自动分配列的宽度，容器宽度增大时，列的宽度会自动增加 */
+}
+```
+
+#### `fr` 关键字
 
 为了方便表示比例关系，网格布局提供了 `fr` 关键字（fraction 的缩写，意为"片段"）。如果两列的宽度分别为 `1fr` 和 `2fr`，就表示后者是前者的两倍。
+
+`1fr` 指示浏览器在列之间分配空间，以便每列均等地获得该空间的一部分。也就是说，它们都是流动的、等宽的列。
 
 ```css
 .container {
@@ -130,7 +134,7 @@ Grid 布局的属性分成两类。一类定义在容器上面，称为容器属
 }
 ```
 
-#### `minmax()`
+#### `minmax()` 函数
 
 `minmax()` 函数产生一个长度范围，表示长度就在这个范围之中。它接受两个参数，分别为最小值和最大值。
 
@@ -140,7 +144,7 @@ grid-template-columns: 1fr 1fr minmax(100px, 1fr);
 
 上面代码中，`minmax(100px, 1fr)` 表示列宽不小于 100px，不大于 `1fr`。
 
-#### `auto`
+#### `auto` 关键字
 
 `auto` 关键字表示由浏览器自己决定长度。
 
@@ -196,7 +200,7 @@ grid-template-columns: 100px auto 100px;
 
 <img src="./images/grid-3.png" class="my-img zoom-50" />
 
-### grid-X-gap
+### grid-X-gap 网格间距
 
 `grid-row-gap` 属性设置行与行的间隔（行间距），`grid-column-gap` 属性设置列与列的间隔（列间距）。
 
@@ -275,9 +279,9 @@ grid-gap: <grid-row-gap> <grid-column-gap>;
 
 `grid-auto-flow` 属性除了设置成 `row` 和 `column`，还可以设成 `row dense` 和 `column dense`。这两个值主要用于，某些项目指定位置以后，剩下的项目怎么自动放置。
 
-### X-items
+### X-items 网格内容布局
 
-`justify-items` 属性设置**单元格内容**的水平位置（左中右），`align-items` 属性设置**单元格内容**的垂直位置（上中下）。`place-items` 属性是 `align-items` 属性和 `justify-items` 属性的合并简写形式。** (如果省略第二个值，浏览器就会假定第二个值等于第一个值。)**
+`justify-items` 属性设置**单元格内容**的水平位置（左中右），`align-items` 属性设置**单元格内容**的垂直位置（上中下）。`place-items` 属性是 `align-items` 属性和 `justify-items` 属性的合并简写形式。**(如果省略第二个值，浏览器就会假定第二个值等于第一个值。)**
 
 ```css
 .container {
@@ -296,7 +300,7 @@ grid-gap: <grid-row-gap> <grid-column-gap>;
 - center：单元格内部居中。
 - stretch：拉伸，占满单元格的整个宽度（默认值）。
 
-### X-content
+### X-content 内容区域布局
 
 `justify-content` 属性是**整个内容区域**在容器里面的水平位置（左中右），`align-content` 属性是**整个内容区域**的垂直位置（上中下）。`place-content` 属性是 `align-content` 属性和 `justify-content` 属性的合并简写形式。
 
@@ -324,7 +328,7 @@ grid-gap: <grid-row-gap> <grid-column-gap>;
 
 `grid-auto-columns` 属性和 `grid-auto-rows` 属性用来设置，浏览器自动创建的多余网格的列宽和行高。它们的写法与 `grid-template-columns` 和 `grid-template-rows` 完全相同。如果不指定这两个属性，浏览器完全根据单元格内容的大小，决定新增网格的列宽和行高。
 
-## 项目属性
+## 03 项目属性
 
 ### grid-column-X grid-row-X
 
@@ -389,7 +393,7 @@ grid-gap: <grid-row-gap> <grid-column-gap>;
 
 斜杠以及后面的部分可以省略，**默认跨越一个网格**。
 
-### grid-area
+### grid-area 网格位置
 
 `grid-area` 属性指定项目放在哪一个**区域**。 (对应 `grid-template-areas` 属性指定的区域)
 
@@ -407,7 +411,7 @@ grid-gap: <grid-row-gap> <grid-column-gap>;
 }
 ```
 
-### X-self
+### X-self 网格内容布局
 
 `justify-self` 属性设置单元格内容的水平位置（左中右），跟 `justify-items` 属性的用法完全一致，但只作用于单个项目。
 
