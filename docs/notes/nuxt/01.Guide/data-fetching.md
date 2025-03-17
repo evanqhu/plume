@@ -167,10 +167,10 @@ const { data, error } = await useAsyncData(() => myGetFunction("users"));
 `useFetch` 和 `useAsyncData` 的返回值相同，如下所示。
 
 - `data`: 传入的异步函数的结果。
-- `refresh/execute`: 一个可以用来刷新返回的 handler 函数的数据显示的函数。
-- `clear`: 一个可以用来将 data 设置为 undefined，将 error 设置为 null，将 status 设置为 idle，并标记任何当前待处理的请求为已取消的函数。
+- `refresh/execute`: 一个可以用来刷新返回的 `handler` 函数的数据显示的函数。
+- `clear`: 一个可以用来将 `data` 设置为 `undefined`，将 `error` 设置为 `null`，将 `status` 设置为 `idle`，并标记任何当前待处理的请求为已取消的函数。
 - `error`: 如果数据获取失败，则为错误对象。
-- `status`: 指示数据请求状态的字符串（"idle"、"pending"、"success"、"error"）。
+- `status`: 指示数据请求状态的字符串（`idle`、`pending`、`success`、`error`）。
 
 ::: note
 `data`、`error` 和 `status` 是带有 `.value` 的 Vue refs，在 `<script setup>` 中可以访问。
@@ -180,7 +180,8 @@ const { data, error } = await useAsyncData(() => myGetFunction("users"));
 
 ### 配置项
 
-1️⃣ 懒加载 lazy
+1️⃣ 懒加载 `lazy`
+
 默认情况下，`useAsyncData` 会阻止导航，直到其异步处理程序得到解析。可以使用 `lazy` 配置项来禁用此行为。
 
 ::: code-tabs
@@ -210,7 +211,7 @@ const { status, data: posts } = useLazyAsyncData("posts", () => $fetch("/api/pos
 
 :::
 
-2️⃣ 修改返回结果 transform
+2️⃣ 修改返回结果 `transform`
 
 使用 `transform` 函数来更改查询的结果
 
@@ -229,9 +230,9 @@ const { data: mountains } = await useFetch("/api/mountains", {
 
 :::
 
-3️⃣ 观察 watch
+3️⃣ 观察 `watch`
 
-要在应用程序中的其他响应值每次发生更改时重新运行您的获取函数，请使用 watch 选项。您可以用于一个或多个可观察元素。
+要在应用程序中的其他响应值每次发生更改时重新运行您的获取函数，请使用 `watch` 选项。您可以用于一个或多个可观察元素。
 
 ::: code-tabs
 @tab pages/index.vue
@@ -253,7 +254,7 @@ const { data, error, refresh } = await useFetch("/api/users", {
 观察一个响应值不会改变获取的 URL，因为 URL 在调用函数时构建。
 :::
 
-4️⃣ 仅客户端获取 server
+4️⃣ 仅客户端获取 `server`
 
 默认情况下，数据获取组合式 API 会在客户端和服务器环境中执行其异步函数。将 server 选项设置为 false 仅在客户端执行调用。在初始加载时，在水合完成之前不会获取数据，因此您需要处理待处理状态，但在随后的客户端导航中，将在加载页面之前等待数据。
 
@@ -291,7 +292,7 @@ const { status, data: comments } = useFetch("/api/comments", {
 
 #### 缺点
 
-1. 服务端请求时无法利用到 useFetch 的自动携带 header 的优势，需要自行处理，携带 cookie
+1. 服务端请求时无法利用到 `useFetch` 的自动携带 `header` 的优势，需要自行处理以携带 `cookie`
 2. 不方便传递 `$fetch` 的其他参数
 
 ::: code-tabs
@@ -419,14 +420,24 @@ export default defineNuxtConfig({
 ```vue :collapsed-lines
 <script setup lang="ts">
 /** 获取推荐列表 */
-const { data: recommendationListData } = useLazyAsyncData(
-  "recommendationList",
-  () => api.defaultApi.fetchRecommendationList(),
+const { data: recommendedList, status } = useLazyAsyncData(
+  "recommendedList",
+  () => api.defaultApi.requestRecommendedPhotos(),
   {
     transform: (data) => data.list || [],
   }
 );
+if (recommendedList.value) {
+  console.log("🚀🚀🚀 recommendedList: ", recommendedList.value[0].author);
+}
 </script>
+
+<template>
+  <!-- 当从其他路由跳转到当前路由时，请求在客户端加载，加载过程中这里可以显示 loading 状态 -->
+  <div v-loading="status === 'pending'">
+    {{ recommendedList }}
+  </div>
+</template>
 ```
 
 :::
@@ -492,3 +503,28 @@ const { data } = await useCustomFetch("/contributors");
 ```
 
 :::
+
+## SSE
+
+```ts
+// Make a POST request to the SSE endpoint
+const response = await $fetch<ReadableStream>("/chats/ask-ai", {
+  method: "POST",
+  body: {
+    query: "Hello AI, how are you?",
+  },
+  responseType: "stream",
+});
+
+// Create a new ReadableStream from the response with TextDecoderStream to get the data as text
+const reader = response.pipeThrough(new TextDecoderStream()).getReader();
+
+// Read the chunk of data as we get it
+while (true) {
+  const { value, done } = await reader.read();
+
+  if (done) break;
+
+  console.log("Received:", value);
+}
+```
