@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@10.6.5",
   "author": "evanqhu <qianghu98@163.com>",
   "license": "MIT",
   "engines": {

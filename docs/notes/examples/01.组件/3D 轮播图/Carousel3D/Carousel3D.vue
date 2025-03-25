@@ -228,7 +228,7 @@ const leftIndices = computed(() => {
   let n = (visibleNum.value - 1) / 2
   n = props.bias.toLowerCase() === "left" ? Math.ceil(n) : Math.floor(n)
 
-  const indices = []
+  const indices: number[] = []
 
   for (let i = 1; i <= n; i++) {
     indices.push(
@@ -246,7 +246,7 @@ const rightIndices = computed(() => {
   let n = (visibleNum.value - 1) / 2
   n = props.bias.toLowerCase() === "right" ? Math.ceil(n) : Math.floor(n)
 
-  const indices = []
+  const indices: number[] = []
 
   for (let i = 1; i <= n; i++) {
     indices.push(
@@ -458,6 +458,7 @@ watch(
 
 /** 组件挂载时添加事件监听器 */
 onMounted(() => {
+  // @ts-ignore
   if (!import.meta.env.SSR) {
     computeData(true)
     window.addEventListener("resize", setSize)
@@ -475,6 +476,7 @@ onMounted(() => {
 })
 /** 组件卸载时移除事件监听器 */
 onBeforeUnmount(() => {
+  // @ts-ignore
   if (!import.meta.env.SSR) {
     window.removeEventListener("resize", setSize)
 
