@@ -6,6 +6,8 @@ permalink: /engineering/m2e1ukmy/
 
 ::: note
 <https://www.bilibili.com/video/BV13W42197jR>
+
+<https://es6.ruanyifeng.com/#docs/module>
 :::
 
 ## 模块化概述

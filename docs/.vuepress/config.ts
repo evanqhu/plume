@@ -21,6 +21,17 @@ export default defineUserConfig({
   ],
   /** VuePress 主题配置 */
   theme: plumeTheme({
+    codeHighlighter: {
+      themes: { light: 'vitesse-light', dark: 'vitesse-dark' },
+      notationDiff: true,
+      notationErrorLevel: true,
+      notationFocus: true,
+      notationHighlight: true,
+      notationWordHighlight: true,
+      highlightLines: true,
+      collapsedLines: false,
+      lineNumbers: true,
+    },
     // 添加您的部署域名
     // hostname: 'https://your_site_url',
     // your git repo url
@@ -40,12 +51,12 @@ export default defineUserConfig({
        * Shiki 代码高亮
        * @see https://theme-plume.vuejs.press/config/plugins/code-highlight/
        */
-      shiki: {
-        //  强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
-        languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css', 'vue', 'scss', 'dotenv', 'nginx', 'plaintext', 'md'],
-        // 行号
-        lineNumbers: false,
-      },
+      // shiki: {
+      //   //  强烈建议预设代码块高亮语言，插件默认加载所有语言会产生不必要的时间开销
+      //   languages: ['shell', 'bash', 'typescript', 'javascript', 'html', 'css', 'vue', 'scss', 'dotenv', 'nginx', 'plaintext', 'md'],
+      //   // 行号
+      //   lineNumbers: false,
+      // },
 
       /**
        * markdown enhance
@@ -113,5 +124,11 @@ export default defineUserConfig({
       /** 阅读时间插件 */
       readingTime: false,
     },
+    // 加密
+    encrypt: {
+      rules: {
+        '/article/ky39hefg/': '980623'
+      }
+    }
   }),
 })

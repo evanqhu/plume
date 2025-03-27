@@ -1,0 +1,139 @@
+<main class="resume-layout">
+  <header class="header">
+    <div class="name-and-position">
+      <div class="name">胡强</div>
+      <div class="position">Web 前端开发工程师</div>
+    </div>
+    <div class="info">
+      <span>男</span>
+      <span>1998-06</span>
+      <span>182-7151-8107</span>
+      <span>qianghu98@163.com</span>
+    </div>
+  </header>
+  <div class="section-container">
+    <section class="section">
+      <div class="section-title">
+        教育经历
+      </div>
+      <ul class="list">
+        <li>2020.09~2023.06 - 重庆邮电大学 - 软件工程专业 - 硕士研究生</li>
+        <li>2015.09~2019.06 - 重庆邮电大学 - 集成电路专业 - 本科</li>
+      </ul>
+    </section>
+    <section class="section">
+      <div class="section-title">
+        工作经历
+      </div>
+      <div class="sub-title">腾讯云科技（武汉）有限责任公司 · 地图产品部 · 前端开发（2023.07～2024.06）</div>
+      <ul class="list">
+        <li>
+          负责腾讯地图交通大数据项目的开发及维护 (react-redux-TDesign-echarts)
+          <ul class="sub-list">
+            <li>开发及维护2个交通大数据相关项目和1个权限管理平台项目</li>
+            <li>对交通态势项目基于全新UI进行了重写，高度还原设计稿，显著提高项目的流畅度和稳定性</li>
+            <li>使用腾讯地图API实现流畅的实时交通路况信息展示与交互</li>
+            <li>使用echarts实现复杂的交通态势信息数据展示</li>
+          </ul>
+        </li>
+        <li>
+          负责封装基于腾讯地图的react组件库 (react-dumi)
+          <ul class="sub-list">
+            <li>使用dumi框架独立开发了一个react组件库，对腾讯地图Web API进行了封装并内部开源</li>
+            <li>维护组件库demo及文档，显著降低了项目中腾讯地图的使用成本</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<style lang="scss" scoped>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, 'JetBrains Mono', sans-serif;
+  }
+
+  .resume-layout {
+    color: #213547;
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem 3rem;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .header {
+      .name-and-position {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+
+        .name {
+          font-size: 1.5rem;
+          letter-spacing: 1rem;
+        }
+
+        .position {
+          font-size: 1.125rem;
+        }
+      }
+
+      .info {
+        font-size: 0.875rem;
+        display: flex;
+        gap: 1rem;
+
+        span:not(:last-child)::after {
+          content: "|";
+          color: #213547;
+          margin-left: 1rem;
+        }
+      }
+    }
+
+    .section-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .section {
+        font-size: 0.875rem;
+        line-height: 1.75;
+
+        .section-title {
+          font-size: 1rem;
+          background: #e7e6e6;
+          font-weight: bold;
+          letter-spacing: 0.5rem;
+          border-left: 4px solid #000;
+          padding-left: 0.5rem;
+          margin-bottom: 0.25rem;
+        }
+
+        .sub-title {
+          font-size: 0.875rem;
+          font-weight: bold;
+          margin-bottom: 0.25rem;
+        }
+
+        .list {
+          list-style-position: inside;
+
+          .sub-list {
+            padding-left: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+</style>
