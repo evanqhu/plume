@@ -6,5 +6,3 @@ permalink: /article/ky39hefg/
 ---
 
 @[demo html](./resume.html)
-
-<!-- @[demo vue](./resume.vue) -->
