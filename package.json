@@ -27,6 +27,7 @@
     "vuepress-theme-plume": "1.0.0-rc.137"
   },
   "dependencies": {
-    "@fnando/sparkline": "^0.3.10"
+    "@fnando/sparkline": "^0.3.10",
+    "marked": "^15.0.8"
   }
 }
