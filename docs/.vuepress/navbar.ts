@@ -5,6 +5,7 @@ export const navbar = defineNavbarConfig([
   { text: '博客', link: '/blog/', activeMatch: '/blog/' },
   { text: '样式', link: '/styles/', activeMatch: '/styles/' },
   // 笔记相关
+  { text: 'JavaScript', link: '/javascript/', activeMatch: '^/(javascript)/' },
   {
     text: 'Vue',
     activeMatch: '^/(vue|nuxt)/',
