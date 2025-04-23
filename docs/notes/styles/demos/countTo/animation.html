@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function animation({ from, to, duration, onProgress }) {
+      let value = from; // 当前值
+      const startTime = Date.now(); // 动画开始时间
+      const speed = (to - from) / duration; // 变化速度
+
+      // 让 value 逐步变化
+      function _step() {
+        const time = Date.now() - startTime; // 动画已执行时间
+        // 终止条件
+        if (time >= duration) {
+          value = to;
+          onProgress && onProgress(value);
+          return;
+        }
+        // 逐步变化
+        value = from + speed * time;
+        onProgress && onProgress(value);
+        requestAnimationFrame(_step);
+      }
+
+      _step();
+    }
+  </script>
+</head>
+
+<body>
+  <button class="btn">打折</button>
+  <label for="discount">价格：5000</label>
+  <script>
+    const label = document.querySelector('label');
+    const button = document.querySelector('.btn');
+
+    button.addEventListener('click', () => {
+      animation({
+        from: 5000,
+        to: 1000,
+        duration: 1000,
+        onProgress(value) {
+          label.textContent = `价格：${value}`;
+        }
+      })
+    });
+  </script>
+</body>
+
+</html>
