@@ -1,7 +1,7 @@
 ---
 title: Element Plus
 createTime: 2025/03/12 17:04:23
-permalink: /styles/a0k0tqbf/
+permalink: /style/a0k0tqbf/
 ---
 
 ::: note

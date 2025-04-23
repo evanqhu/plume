@@ -1,7 +1,7 @@
 ---
 title: 背景属性
 createTime: 2025/03/13 13:16:54
-permalink: /styles/vyp90uph/
+permalink: /style/vyp90uph/
 ---
 
 ## 01 背景属性

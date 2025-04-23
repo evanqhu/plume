@@ -1,7 +1,7 @@
 ---
 title: hover-mixin
 createTime: 2025/03/12 17:16:50
-permalink: /styles/tjvr5otf/
+permalink: /style/tjvr5otf/
 ---
 
 自定义一个 scss 的 hover mixin

@@ -1,7 +1,7 @@
 ---
 title: 重置 CSS 样式
 createTime: 2025/03/12 17:11:32
-permalink: /styles/1sqgfwar/
+permalink: /style/1sqgfwar/
 ---
 
 ::: note

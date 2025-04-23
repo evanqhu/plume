@@ -1,7 +1,7 @@
 ---
 title: 滚动捕捉
 createTime: 2025/04/08 14:34:01
-permalink: /styles/cm2r7k1g/
+permalink: /style/cm2r7k1g/
 ---
 
 ::: note

@@ -6,10 +6,13 @@
         <div class="position">Web 前端开发工程师</div>
       </div>
       <div class="personal-info">
-        <span>男</span>
-        <span>1998-06</span>
-        <span>182-7151-8107</span>
-        <a href="mailto:qianghu98@163.com">qianghu98@163.com</a>
+        <span class="info-item">男</span>
+        <span class="info-item">1998-06</span>
+        <span class="info-item">182-7151-8107</span>
+        <a href="mailto:qianghu98@163.com" class="info-item">qianghu98@163.com</a>
+        <a href="https://evanqhu.github.io/plume/" class="info-item">
+          my blog
+        </a>
       </div>
     </header>
     <div class="section-container">
@@ -82,6 +85,7 @@
           <li>熟悉常用的 Element Plus、Ant Design、TDesign、Vant 等 UI 组件库的基本使用</li>
           <li>熟悉 Vite 和 Webpack 打包工具的基本使用及配置，熟悉项目开发、打包、部署的流水线过程</li>
           <li>熟悉 Git 版本控制及代码托管，具备团队协作开发经验</li>
+          <li>熟练使用 AI 工具提高开发效率</li>
         </ul>
       </section>
       <!-- 自我评价 -->
@@ -157,8 +161,11 @@
     display: flex;
     gap: 1rem;
 
-    span:not(:last-child)::after {
+    .info-item:not(:last-child)::after {
+      display: inline-block;
       content: "|";
+      font-weight: normal;
+      cursor: default;
       color: #213547;
       margin-left: 1rem;
     }

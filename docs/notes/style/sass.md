@@ -1,7 +1,7 @@
 ---
 title: Sass
 createTime: 2025/04/10 09:08:13
-permalink: /styles/93o7lc8n/
+permalink: /style/93o7lc8n/
 ---
 
 # Sass 高级用法笔记

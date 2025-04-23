@@ -1,7 +1,7 @@
 ---
 title: 行盒截断样式
 createTime: 2025/04/23 09:32:25
-permalink: /styles/4qppc3du/
+permalink: /style/4qppc3du/
 ---
 
 :::demo

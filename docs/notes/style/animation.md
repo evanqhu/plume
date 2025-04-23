@@ -1,7 +1,7 @@
 ---
 title: Animation
 createTime: 2025/04/10 09:38:12
-permalink: /styles/dz4vh7px/
+permalink: /style/dz4vh7px/
 ---
 
 ## 利用延迟实现复杂动画

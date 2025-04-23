@@ -1,7 +1,7 @@
 ---
 title: isolation
 createTime: 2025/03/12 17:13:55
-permalink: /styles/t8g0gf0i/
+permalink: /style/t8g0gf0i/
 ---
 
 ::: note
