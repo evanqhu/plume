@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLIP 动画示例</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 10px auto;
+    }
+
+    .list-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex: 1;
+    }
+
+    .list-item {
+      padding: 15px;
+      margin-bottom: 10px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      will-change: transform;
+      position: relative;
+    }
+
+    .item-1 {
+      background-color: #ffcccc;
+    }
+
+    .moving {
+      position: relative;
+      z-index: 1;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>FLIP 动画示例</h1>
+  <p>点击按钮，"项目 1"会随机移动到其他位置，并带有动画效果。</p>
+
+  <button class="button" onclick="moveItemRandomly()">随机移动项目 1</button>
+
+  <div class="list-container">
+    <ul class="list" id="list">
+      <li class="list-item item-1">项目 1</li>
+      <li class="list-item">项目 2</li>
+      <li class="list-item">项目 3</li>
+      <li class="list-item">项目 4</li>
+      <li class="list-item">项目 5</li>
+    </ul>
+  </div>
+
+  <script>
+    function moveItemRandomly() {
+      const list = document.getElementById("list");
+      const item1 = document.querySelector('.item-1');
+
+      // 1. First: 记录初始状态
+      const first = item1.getBoundingClientRect();
+
+      // 添加移动类
+      item1.classList.add('moving');
+      
+      // 获取所有项目并找到当前项目的位置
+      const items = Array.from(list.children);
+      const currentIndex = items.indexOf(item1);
+
+      // 生成一个不包含当前位置的可用位置数组
+      const availablePositions = items.map((_, index) => index).filter(index => index !== currentIndex);
+
+      // 从可用位置中随机选择一个
+      const newIndex = availablePositions[Math.floor(Math.random() * availablePositions.length)];
+
+
+      // 先移除项目
+      item1.remove();
+
+      // 根据新位置插入项目
+      if (newIndex === items.length - 1) {
+        list.appendChild(item1);
+      } else {
+        const targetNode = list.children[newIndex];
+        list.insertBefore(item1, targetNode);
+      }
+
+      // 2. Last: 记录最终状态
+      const last = item1.getBoundingClientRect();
+
+      // 3. Invert: 计算差异并应用反向变换
+      let deltaX = first.left - last.left;
+      let deltaY = first.top - last.top;
+
+      // 应用反向变换，将元素移动到初始位置
+      item1.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+      /** 注意⚠️：代码执行到这里，用户是看不到样式变化的，因为浏览器还没有重绘，所以需要等待下一帧 */
+
+      // 等待一帧以确保 DOM 更新
+      // 其实这里用一层 requestAnimationFrame 就够了，但是为了保险起见，用两层
+      // 第一层：确保 DOM 更新
+      // 第二层：确保样式更新
+      requestAnimationFrame(() => {
+        // 等待下一帧
+        requestAnimationFrame(() => {
+          // 4. Play: 移除反向变换，让元素自然过渡
+          item1.style.transition = "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+          item1.style.transform = "";
+
+          // 动画结束后清理样式
+          item1.addEventListener("transitionend", () => {
+            item1.style.transition = "";
+            item1.classList.remove('moving');
+          }, { once: true });
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>
