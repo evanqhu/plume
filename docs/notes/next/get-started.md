@@ -903,6 +903,9 @@ const session = await auth();
 ```tsx
 export const dynamic = "force-dynamic";
 
+/** 每隔 60 秒重新生成页面 */
+export const revalidate = 60;
+
 export default function Page() {
   return <div>...</div>;
 }
@@ -942,6 +945,32 @@ export default async function CardWrapper() {
   });
 
   return <div>...</div>;
+}
+```
+
+:::
+
+#### revalidatePath
+
+`revalidatePath` 是一个用于重新验证路由路径的函数。说人话，就算一个路由是静态生成了的，在调用 `revalidatePath` 后，服务端会重新渲染这个路由页面，生成最新的 html 文件，然后再跳转到这个路由页面的时候，数据就是最新的了。
+
+在官方示例中，需要在 `createInvoice`、`updateInvoice` 和 `deleteInvoice` 三个函数中都加上 `revalidatePath("/dashboard");`，因为这三个函数的调用会影响到 dashboard 页面，所以需要重新验证这个路由页面。
+
+::: code-tabs
+@tab app/lib.actions.ts
+
+```ts
+/** 删除发票 */
+export async function deleteInvoice(id: string) {
+  try {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+  } catch (error) {
+    console.error("Database Error: Failed to Delete Invoice.", error);
+  }
+  // 触发新的服务器请求并重新渲染表格
+  revalidatePath("/dashboard/invoices");
+  // 触发新的服务器请求并重新渲染首页
+  revalidatePath("/dashboard");
 }
 ```
 
