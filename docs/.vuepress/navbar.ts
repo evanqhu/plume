@@ -15,7 +15,7 @@ export const navbar = defineNavbarConfig([
       { text: 'Nuxt', link: '/nuxt/', activeMatch: '/nuxt/' },
     ]
   },
-
+  { text: 'Next', link: '/next/', activeMatch: '/next/' },
   { text: '工程化', link: '/engineering/', activeMatch: '/engineering/' },
   { text: '组件&算法', link: '/examples/', activeMatch: '/examples/' },
   { text: '其它', link: '/others/', activeMatch: '/others/' },

@@ -39,6 +39,11 @@ export const notes = defineNotesConfig({
       sidebar: 'auto'
     },
     {
+      dir: 'next',
+      link: '/next',
+      sidebar: 'auto'
+    },
+    {
       dir: 'javascript',
       link: '/javascript',
       sidebar: 'auto'
