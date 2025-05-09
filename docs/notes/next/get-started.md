@@ -869,3 +869,80 @@ await signOut({ redirectTo: "/" });
 // 获取当前用户
 const session = await auth();
 ```
+
+## 渲染
+
+### 服务端和客户端渲染
+
+- Next.js 默认使用**服务端渲染（SSR）**，但可以通过 `use client` 指令将组件转换为客户端组件
+- 服务端组件无法使用 hooks 和客户端组件的特性，如 `useState`、`useEffect` 等
+- 服务端组件无法响应客户端事件，如 `onClick`、`onChange` 等
+
+### 静态渲染和动态渲染
+
+- Next.js 默认使用**静态渲染**，网页内容在打包时生成静态的 HTML 文件
+- 动态渲染在运行时生成网页内容，每次请求都会重新生成
+- 一个路由页面中如果使用了动态 API，该页面就会被动态渲染，动态 API 如下：
+  - cookies
+  - headers
+  - connection
+  - draftMode
+  - searchParams prop
+  - unstable_noStore
+- 在页面中使用 `fetch`，并设置 `cache` 为 `no-store`，该页面就会被动态渲染
+- 数据库操作无法将组件变为动态
+- 一般来说静态和动态渲染指的是路由页面级别，而不是组件级别；但启用 PPR 后，一个页面可能有静态组件也有动态渲染的组件
+- 对于页面级别，可以使用 `export const dynamic = 'force-dynamic'` 来强制页面动态渲染
+- 对于启用的 PPR 的页面，子组件中如果使用了动态 API，该子组件就会被动态渲染
+
+#### 强制页面动态渲染
+
+::: code-tabs
+@tab app/dashboard/page.tsx
+
+```tsx
+export const dynamic = "force-dynamic";
+
+export default function Page() {
+  return <div>...</div>;
+}
+```
+
+:::
+
+#### 将组件变为动态渲染
+
+::: code-tabs
+@tab app/dashboard/layout.tsx
+
+```tsx
+// 启用 PPR
+export const experimental_ppr = true;
+```
+
+@tab app/dashboard/page.tsx
+
+```tsx
+export default async function Page() {
+  return (
+    <Suspense fallback={<CardsSkeleton />}>
+      <CardWrapper />
+    </Suspense>
+  );
+}
+```
+
+@tab app/ui/dashboard/card-wrapper.tsx
+
+```tsx
+export default async function CardWrapper() {
+  // 由于设置了 no-store，dashboard 页面就会变成 PPR，CardWrapper 组件会动态渲染
+  const demo = await fetch("https://jsonplaceholder.typicode.com/posts/1", {
+    cache: "no-store",
+  });
+
+  return <div>...</div>;
+}
+```
+
+:::
