@@ -17,7 +17,7 @@ export default defineUserConfig({
   bundler: viteBundler(),
   /** 元信息 */
   head: [
-    ['link', { rel: 'icon', href: '/plume/avatar.svg' }],
+    ['link', { rel: 'icon', href: '/avatar.svg' }],
   ],
   /** VuePress 主题配置 */
   theme: plumeTheme({
