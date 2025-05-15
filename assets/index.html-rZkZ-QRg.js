@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app-BRZjaKcj.js";const r={};function c(o,n){return a(),t("div")}const s=e(r,[["render",c]]),i=JSON.parse('{"path":"/blog/categories/","title":"分类","lang":"zh-CN","frontmatter":{"lang":"zh-CN","title":"分类","gitInclude":[],"draft":true},"git":{},"filePathRelative":null,"headers":[],"type":"blog-categories"}');export{s as comp,i as data};
