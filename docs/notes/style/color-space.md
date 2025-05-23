@@ -1,7 +1,7 @@
 ---
 title: 色彩空间
 createTime: 2025/01/21 22:18:48
-permalink: /others/y19y6rul/
+permalink: /style/y19y6rul/
 ---
 
 ## RGB（红绿蓝）

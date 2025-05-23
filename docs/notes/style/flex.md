@@ -1,7 +1,7 @@
 ---
 title: Flex 布局
 createTime: 2025/01/06 15:59:03
-permalink: /others/a0iptk39/
+permalink: /style/a0iptk39/
 ---
 
 ::: note

@@ -1,7 +1,7 @@
 ---
 title: Grid 布局
 createTime: 2025/01/02 17:38:11
-permalink: /others/hsufmzuf/
+permalink: /style/hsufmzuf/
 ---
 
 ::: note

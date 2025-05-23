@@ -1,7 +1,7 @@
 ---
 title: 重置 CSS
 createTime: 2025/01/24 16:07:06
-permalink: /others/57w2x3c1/
+permalink: /style/57w2x3c1/
 ---
 
 <https://www.joshwcomeau.com/css/custom-css-reset/>

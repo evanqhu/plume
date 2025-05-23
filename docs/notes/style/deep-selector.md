@@ -1,7 +1,7 @@
 ---
 title: 深度作用选择器
 createTime: 2024/12/23 11:52:21
-permalink: /others/g9se3d85/
+permalink: /style/g9se3d85/
 ---
 
 ::: note
