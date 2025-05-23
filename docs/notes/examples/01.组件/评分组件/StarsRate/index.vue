@@ -27,6 +27,7 @@ const style = computed(() => ({
 
   .background-image,
   .foreground-image {
+    width: 100%;
     position: absolute;
     inset: 0; // 等价于 top: 0; right: 0; bottom: 0; left: 0;
   }

@@ -110,4 +110,22 @@ const handleClick = (item) => {
 }
 ```
 
+Webpack 中可使用 `require.context()` 批量导入模块
+
+在 context module 中，"request" 通常指代你想要加载的模块的名称或路径
+
+```js
+// 1. 引入 ./modules 目录下的所有 .js 文件
+const modulesFiles = require.context("./modules", true, /\.js$/);
+
+// 2. 导入所有模块
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+  // set './app.js' => 'app' 提取模块名
+  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, "$1");
+  const value = modulesFiles(modulePath); // 一个文件就是一个模块
+  modules[moduleName] = value.default; // 默认导出，所以用 default
+  return modules;
+}, {});
+```
+
 ## 其他
