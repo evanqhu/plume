@@ -4,20 +4,6 @@ createTime: 2024/12/23 14:45:18
 permalink: /others/
 ---
 
-## 以 x86 架构运行 shell
-
-`arch -x86_64 zsh` 是一个命令，用于在 macOS 系统上以 x86_64 架构运行 Zsh
-
-像 Node 14 及其之前版本是基于 x86 架构开发的，直接在 M 系列芯片的设备上使用 `nvm install 14` 会报错，这时需要先运行 `arch -x86_64 zsh` 命令，再安装
-
-- `arch`：这是一个 macOS 命令，用于指定运行命令时使用的架构。macOS 系统可以运行在不同的处理器架构上，例如 x86_64 (即 Intel 的 64 位架构) 和 arm64 (即 Apple Silicon M1 和 M2 处理器的 64 位架构)
-- `-x86_64`：这是 `arch` 命令的一个参数，指定需要使用 x86_64 架构来运行后面的命令
-- `zsh`：这是一个流行的命令行 Shell，类似于 Bash，但提供了更多的功能和更强的自定义能力
-
-组合起来，`arch -x86_64 zsh` 意思是在 x86_64 架构下启动 Zsh Shell。这在使用 Apple Silicon 的 macOS 设备时特别有用，因为这些设备默认运行在 arm64 架构下，但有时可能需要在 x86_64 架构下运行某些程序或命令。
-
-例如，当你在 Apple Silicon Mac 上运行一些只兼容 x86_64 架构的软件时，可以使用这种方法启动兼容环境。
-
 ## VPN 终端代理
 
 在 clashX 中点击 `复制终端代理命令`，粘贴到终端中执行，当前终端的网络请求即可强制使用代理
@@ -67,3 +53,14 @@ v18
 ```
 
 :::
+
+## 解决 Element Plus 的样式问题
+
+在 Nuxt3 项目中使用 Element Plus 时，发现使用 scss 自定义样式的时候会出现报错，提示 `Failed to resolve import "element-plus/theme-chalk/src/common/var.scss" from "element-plus/theme-chalk/src/index.scss".`，后面找到原因是由于包的组织问题，在 node_modules 中找不到 `element-plus/theme-chalk/src/common/var.scss` 文件。解决方案是新增 .npmrc 文件，内容如下：
+shamefully-hoist=true
+strict-peer-dependencies=false
+shell-emulator=true
+
+# fix code ERESOLVE \n ERESOLVE could not resolve
+
+legacy-peer-deps=true
