@@ -87,9 +87,10 @@ wss.on("connection", function connection(ws) {
 
 ### 1. 连接断开和重连机制
 
-WebSocket 连接可能会因为网络问题、服务器重启等原因断开，需要实现自动重连机制。
+WebSocket 连接可能会因为网络问题、服务器重启等原因断开，需要实现自动重连机制。下面是一个简单的重连机制实现，对原生的 WebSocket 进行了封装，方便使用。
 
 ```javascript
+// 封装 WebSocket 连接，实现自动重连机制
 class WebSocketClient {
   constructor(url) {
     this.url = url;
