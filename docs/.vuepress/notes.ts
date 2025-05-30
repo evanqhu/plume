@@ -57,6 +57,16 @@ export const notes = defineNotesConfig({
       dir: 'ai',
       link: '/ai',
       sidebar: 'auto'
+    },
+    {
+      dir: 'node',
+      link: '/node',
+      sidebar: 'auto'
+    },
+    {
+      dir: 'react',
+      link: '/react',
+      sidebar: 'auto'
     }
   ],
 })

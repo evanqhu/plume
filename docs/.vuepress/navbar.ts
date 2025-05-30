@@ -6,7 +6,7 @@ export const navbar = defineNavbarConfig([
   { text: 'AI', link: '/ai/', activeMatch: '/ai/' },
   { text: 'Style', link: '/style/', activeMatch: '/style/' },
   // 笔记相关
-  { text: 'JavaScript', link: '/javascript/', activeMatch: '^/(javascript)/' },
+  { text: 'JS', link: '/javascript/', activeMatch: '^/(javascript)/' },
   {
     text: 'Vue',
     activeMatch: '^/(vue|nuxt)/',
@@ -15,7 +15,15 @@ export const navbar = defineNavbarConfig([
       { text: 'Nuxt', link: '/nuxt/', activeMatch: '/nuxt/' },
     ]
   },
-  { text: 'Next', link: '/next/', activeMatch: '/next/' },
+  {
+    text: 'React',
+    activeMatch: '^/(react|next)/',
+    items: [
+      { text: 'React', link: '/react/', activeMatch: '/react/' },
+      { text: 'Next', link: '/next/', activeMatch: '/next/' },
+    ]
+  },
+  { text: 'Node', link: '/node/', activeMatch: '/node/' },
   { text: '工程化', link: '/engineering/', activeMatch: '/engineering/' },
   { text: '组件&算法', link: '/examples/', activeMatch: '/examples/' },
   { text: '其它', link: '/others/', activeMatch: '/others/' },
