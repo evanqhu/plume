@@ -4,6 +4,10 @@ createTime: 2025/05/30 15:52:36
 permalink: /vue/l3yw8m9l/
 ---
 
+::: note
+官网：<https://pinia.vuejs.org/>
+:::
+
 ## 介绍
 
 状态管理器 (插件)

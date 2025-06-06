@@ -526,3 +526,56 @@ export default withNuxt(
 ```
 
 :::
+
+## 09 Vue 官方项目配置
+
+```ts
+// eslint.config.ts
+import { globalIgnores } from "eslint/config";
+import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
+import pluginVue from "eslint-plugin-vue";
+import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
+
+// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
+// import { configureVueProject } from '@vue/eslint-config-typescript'
+// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
+// More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
+
+export default defineConfigWithVueTs(
+  {
+    name: "app/files-to-lint",
+    files: ["**/*.{ts,mts,tsx,vue}"],
+  },
+
+  globalIgnores(["**/dist/**", "**/dist-ssr/**", "**/coverage/**"]),
+
+  pluginVue.configs["flat/essential"],
+  vueTsConfigs.recommended,
+  skipFormatting
+);
+```
+
+```json
+// .prettierrc.json
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "semi": false,
+  "singleQuote": true,
+  "printWidth": 100
+}
+```
+
+```json
+// package.json
+{
+  "devDependencies": {
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.5.0",
+    "eslint": "^9.22.0",
+    "eslint-plugin-vue": "~10.0.0",
+    "prettier": "3.5.3",
+    "typescript": "~5.8.0",
+    "vue-tsc": "^2.2.8"
+  }
+}
+```

@@ -10,6 +10,8 @@ WebSocket 是 HTML5 提供的一种在单个 TCP 连接上进行全双工通讯�
 <https://developer.mozilla.org/zh-CN/docs/Web/API/WebSockets_API>
 
 <https://www.ruanyifeng.com/blog/2017/05/websocket.html>
+
+<https://github.com/evanqhu/websocket-demo>
 :::
 
 ## 基本概念

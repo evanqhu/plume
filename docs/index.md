@@ -13,11 +13,7 @@ config:
       actions:
         -
           theme: brand
-          text: 其它
-          link: /notes/others/
-        -
-          theme: alt
           text: Github →
-          link: https://github.com/evanqhu
+          link: https://github.com/evanqhu/
   - type: blog
 ---
