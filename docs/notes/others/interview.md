@@ -339,7 +339,7 @@ less 是一种 css 语言的预处理器，是用来书写 css 的工具。
 
 **同一层叠上下文中的层叠顺序**
 
-<img src="img/前端面试题/z-index.png" alt="z-index" style="zoom: 67%;" />
+<img src="./images/z-index.png" alt="z-index" style="zoom: 67%;" />
 
 🎯 absolute 和 fixed
 
@@ -378,7 +378,7 @@ less 是一种 css 语言的预处理器，是用来书写 css 的工具。
 **原型链的基本原理**：任何一个**实例**，通过原型链，找到它上面的**原型**，该原型对象中的方法和属性，可以被所有的原型实例共享。
 **原型链的关键**：在访问一个实例的时候，如果实例本身没找到此方法或属性，就往原型上找。如果还是找不到，继续往上一级的原型上找。
 
-<img src="img/前端面试题/原型链.svg" alt="原型链" style="zoom: 80%;" />
+<img src="./images/原型链.svg" alt="原型链" style="zoom: 80%;" />
 
 3️⃣ 判断属性是否为对象自有属性
 
@@ -433,7 +433,7 @@ JS 是单线程，所以必须异步；**同步任务执行完毕后，再来执
 - 同步任务 (synchronous)：在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务
 - 异步任务 (asynchronous)：不进入主线程、而进入"任务队列" (task queue) 的任务，只有"任务队列"通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行 **(异步永远和队列挂钩)**
 
-<img src="img/前端面试题/event-loop.png" alt="event-loop" style="zoom:50%;" />
+<img src="./images/event-loop.png" alt="event-loop" style="zoom:50%;" />
 
 ```javascript
 for (let i = 0; i < 3; i++) {
@@ -633,7 +633,7 @@ function getType(obj) {
 
 ### 🎯 DOM 常见操作
 
-![dom](img/前端面试题/dom.png)
+![dom](./images/dom.png)
 
 ### 🎯 DOM 事件的总结
 
@@ -655,7 +655,7 @@ element.addEventListener("keyup", function () {}, false);
 - 捕获：从 window 对象传到 目标元素 (从上往下)
 - 冒泡：从目标元素传到 window 对象 (从下往上)
 
-<img src="img/前端面试题/event.jpg" alt="event" style="zoom: 67%;" />
+<img src="./images/event.jpg" alt="event" style="zoom: 67%;" />
 
 ### 🎯 防抖和节流
 
@@ -758,7 +758,7 @@ const throttle = (func, limit) => {
 
 **握手之前，还没有进行数据的传输，确保握手就可以了。挥手之前，正在进行数据的传输，为了确保数据的完整性，必须多经历一次验证（继续接收）**
 
-![TCP三次握手](img/前端面试题/TCP三次握手.png)
+![TCP三次握手](./images/TCP三次握手.png)
 
 ### 🎯 浏览器缓存机制
 
@@ -796,7 +796,7 @@ Expires: <max-age 后的时间>
 - 服务器比较该资源最新修改时间，如果资源没有变动，则不返回资源，响应 `304 (Not Modified)`
 - 浏览器重新启用强缓存，并更新有效期
 
-<img src="img/前端面试题/浏览器缓存机制.png" alt="浏览器缓存机制" style="zoom: 33%;" />
+<img src="./images/浏览器缓存机制.png" alt="浏览器缓存机制" style="zoom: 33%;" />
 
 ### 🎯 浏览器跨域
 
@@ -821,7 +821,7 @@ res.set("Access-Control-Allow-Origin", "*"); // 允许所有
 
 ### 🎯 页面加载和渲染流程
 
-<img src="img/前端面试题/dom-render.png" alt="dom-render" style="zoom:67%;" />
+<img src="./images/dom-render.png" alt="dom-render" style="zoom:67%;" />
 
 1. 解析 HTML，构建 DOM 树
 2. 解析 CSS，生成 CSS 规则树
@@ -961,11 +961,11 @@ OK
 
 ### 🎯 UDP 和 TCP 的区别
 
-![TCP和UDP的区别](img/前端面试题/TCP和UDP的区别.png)
+![TCP和UDP的区别](./images/TCP和UDP的区别.png)
 
 ### 🎯 TCP/IP 网络模型
 
-![tcp](img/前端面试题/tcp.png)
+![tcp](./images/tcp.png)
 
 ### 🎯 HTTP 2.0
 
@@ -1132,9 +1132,9 @@ window.onload = window.onscroll = function () {
 - 传统的 HTTP 报文是直接将报文信息传输到 TCP 然后 TCP 再通过 TCP 套接字发送给目的主机上
 - HTTPS 是 HTTP 报文直接将报文信息传输给 SSL 套接字进行加密，SSL 加密后将加密后的报文发送给 TCP 套接字，然后 TCP 套接字再将加密后的报文发送给目的主机，目的主机将通过 TCP 套接字获取加密后的报文给 SSL 套接字，SSL 解密后交给对应进程。
 
-<img src="img/前端面试题/http&https.png" alt="http&https" style="zoom:50%;" />
+<img src="./images/http&https.png" alt="http&https" style="zoom:50%;" />
 
-<img src="img/前端面试题/HTTPS加密.png" alt="HTTPS加密" style="zoom:50%;" />
+<img src="./images/HTTPS加密.png" alt="HTTPS加密" style="zoom:50%;" />
 
 1. 客户端发起握手请求，要求与服务器建立 SSL 连接 (以明文传输信息)
 2. 服务器生成证书和公私钥，之后将证书和公钥发送给客户端
@@ -1190,7 +1190,7 @@ webpack 打包流程
 
 稳定性指的是两个相等的元素，排序后还是原来的顺序
 
-![order](img/前端面试题/order.png)
+![order](./images/order.png)
 
 1️⃣ 直接插入排序
 

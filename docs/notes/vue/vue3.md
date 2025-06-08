@@ -58,8 +58,6 @@ permalink: /vue/l0v2qrgb/
 pnpm create vue@latest
 ```
 
-<img src="./images/create-vue.png" alt="create-vue.png" class="my-img" />
-
 ### 2️⃣ 基于 [create-vite](https://github.com/vitejs/vite/tree/main/packages/create-vite) 创建
 
 `Vite` 是新一代前端构建工具，`Vite` 的优势如下：
@@ -79,8 +77,6 @@ pnpm create vue@latest
 ## 执行创建命令
 pnpm create vite
 ```
-
-<img src="./images/create-vite.png" alt="create-vite.png" class="my-img" />
 
 选择某个框架之后，还可以自定义模板，比如这里选择 Vue 框架，还可以通过 create-vue 来自定义模板，也可以选择 Nuxt 模板等
 
