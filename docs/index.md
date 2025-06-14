@@ -8,7 +8,7 @@ config:
     background: tint-plate
     hero:
       name: 蛋炒饭的前端笔记
-      tagline: 基于 VuePress 的 Plume 主题搭建的前端知识笔记站点
+      tagline: But how could you live and have no story to tell?
       text: 记录日常学习和工作中的各种笔记
       actions:
         -
