@@ -40,7 +40,7 @@ Server-Sent Events (SSE) 是一种服务器推送技术，允许服务器通过 
 
 ## 基本实现
 
-### 服务器端（Node.js 示例）
+### 🏢 服务端（Node.js）
 
 ```javascript
 const http = require("http");
@@ -96,7 +96,7 @@ server.listen(PORT, () => {
 });
 ```
 
-### 客户端实现
+### 🧑‍💻 客户端
 
 ```javascript
 const eventSource = new EventSource("http://localhost:3000/events");

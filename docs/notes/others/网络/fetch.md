@@ -7,6 +7,7 @@ permalink: /others/5l8v161a/
 为什么 `fetch` 需要两个 `await`？
 ::: note
 <https://tomontheinternet.com/why-two-awaits>
+<https://github.com/tom-on-the-internet/fetch-demonstration>
 :::
 
 ## 基本用法
@@ -198,3 +199,56 @@ server.listen(PORT, () => {
 ```
 
 :::
+
+## fetch 流式传输和 SSE 的区别
+
+fetch 流式获取数据 和 SSE（Server-Sent Events）虽然都可以实现"流式"地从服务端获取数据，但它们的原理、适用场景和实现方式有明显区别：
+
+### 1. fetch 流式获取数据
+
+- **原理**：fetch 返回的 Response 对象有一个 body 属性，是一个 ReadableStream。你可以用 for await...of 或 reader 逐步读取数据块（chunk），实现"流式"处理。
+- **适用场景**：适合需要一次性获取大文件、媒体流、或需要边下边处理的场景（如大 JSON、视频、文件下载等）。
+- **数据格式**：可以是任意格式（JSON、文本、二进制等），由服务端决定。
+- **连接特性**：fetch 请求是一次性的，数据流完毕后连接关闭。如果需要持续推送，需要客户端不断重新发起请求。
+- **实现示例**：
+
+  ```js
+  const response = await fetch("/big-data");
+  const reader = response.body.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    // 处理 value
+  }
+  ```
+
+### 2. SSE（Server-Sent Events）
+
+- **原理**：SSE 是浏览器内置的事件流协议，使用 EventSource 对象。服务端以 text/event-stream 格式持续推送事件，客户端自动接收。
+- **适用场景**：适合服务端主动、持续推送消息给客户端，比如实时通知、消息推送、进度更新等。
+- **数据格式**：只能是文本（通常是 UTF-8 编码的 JSON 或字符串），格式固定。
+- **连接特性**：SSE 连接是长连接，服务端可以不断推送数据，浏览器断线会自动重连。
+- **实现示例**：
+
+  ```js
+  const es = new EventSource("/events");
+  es.onmessage = (event) => {
+    console.log("收到消息:", event.data);
+  };
+  ```
+
+### 3. 主要区别总结
+
+| 特性       | fetch 流式读取        | SSE (EventSource)        |
+| ---------- | --------------------- | ------------------------ |
+| 连接类型   | 一次性请求，流式读取  | 长连接，持续推送         |
+| 数据格式   | 任意（文本/二进制等） | 仅文本（event-stream）   |
+| 断线重连   | 需手动实现            | 浏览器自动重连           |
+| 适用场景   | 大文件/流式处理       | 实时消息/事件推送        |
+| 浏览器支持 | 新版浏览器支持        | 大部分主流浏览器支持     |
+| 服务端实现 | 普通 HTTP 响应        | 需支持 event-stream 协议 |
+
+### 4. 什么时候用哪个？
+
+- **fetch 流式**：需要处理大文件、媒体流、或自定义协议的数据流时。
+- **SSE**：需要服务端主动、持续推送消息给前端时（如 AI 消息、实时通知、进度条、聊天消息等）。
