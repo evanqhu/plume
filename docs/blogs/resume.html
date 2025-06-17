@@ -15,7 +15,7 @@
         </a>
       </div>
     </header>
-    <div class="section-container">
+    <article class="section-container">
       <!-- 教育经历 -->
       <section class="section">
         <div class="section-title">
@@ -97,14 +97,30 @@
         <p>本人逻辑清晰，具有良好的沟通协调能力，善于团队合作；能够快速适应新环境，具有较强的学习能力和解决问题的能力；热爱开发，关注前端技术，擅长使用 AI 工具，具有良好的代码习惯；责任心强烈，注重细节，勤劳刻苦，积极上进。
         </p>
       </section>
-    </div>
+    </article>
   </main>
   <button id="btn">打印</button>
 </div>
 
 <script>
   const btn = document.querySelector('#btn')
-  btn.onclick = () => window.print();
+  btn.onclick = () => {
+    // 向父窗口发送消息，请求修改标题
+    window.parent.postMessage({
+      type: 'SET_PRINT_TITLE',
+      title: '胡强-前端开发工程师'
+    }, '*');
+
+    // 等待一小段时间确保标题被修改
+    setTimeout(() => {
+      window.print();
+      
+      // 打印完成后恢复标题
+      window.parent.postMessage({
+        type: 'RESTORE_TITLE'
+      }, '*');
+    }, 100);
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -112,6 +128,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  /* 去除滚动条 */
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   body {
